@@ -6,4 +6,5 @@ export interface Product {
     type?: string;
     brand: string;
     quantityInStock?: number;
+    discountPercentage: number;
 }
