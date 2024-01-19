@@ -4,6 +4,7 @@ import { router } from '../router/Routes';
 
  
 axios.defaults.baseURL = 'http://localhost:5001/api/';
+axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -48,9 +49,16 @@ const Catalog = {
     details: (id: number) => requests.get(`products/${id}`)
 }
 
+const Basket = {
+    get: () => requests.get('basket'),
+    addItem: (productId: number, quantity = 1) => requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
+    removeItem: (productId: number, quantity = 1) => requests.del(`basket?productId=${productId}&quantity=${quantity}`)
+}
+
 
 const agent = {
-    Catalog
+    Catalog,
+    Basket
 }
 
 export default agent;
