@@ -107,7 +107,7 @@ export const catalogSlice = createSlice({
         });
         builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
             productsAdapter.setAll(state, action.payload);
-            state.status = 'idle',
+            state.status = 'idle';
                 state.productsLoaded = true;
         });
         builder.addCase(fetchProductsAsync.rejected, (state, action) => {
