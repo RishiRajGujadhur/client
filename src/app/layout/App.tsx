@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import agent from '../api/agent';
 import { getCookie } from '../util/util';
 import LoadingComponent from './LoadingComponent';
-import { useAppDispatch } from '../store/ConfigureStore';
+import { useAppDispatch } from '../store/configureStore';
 import { setBasket } from '../../features/basket/basketSlice';
 
 function App() {

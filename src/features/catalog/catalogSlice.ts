@@ -1,8 +1,8 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import agent from "../../app/api/agent";
-import { RootState } from "../../app/store/ConfigureStore";
 import { MetaData } from "../../models/pagination";
 import { ProductParams, Product } from "../../models/product";
+import { RootState } from "../../app/store/configureStore";
 
 interface CatalogState {
     productsLoaded: boolean;

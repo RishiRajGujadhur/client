@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import NotFound from '../../app/errors/NotFound';
 import LoadingComponent from '../../app/layout/LoadingComponent';
 import { LoadingButton } from '@mui/lab';
-import { useAppDispatch, useAppSelector } from '../../app/store/ConfigureStore';
 import { addBasketItemAsync, removeBasketItemAsync } from '../basket/basketSlice';
 import { fetchProductAsync, productSelectors } from './catalogSlice';
+import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
 
 export default function ProductDetails() {
     const { id } = useParams<{ id: string }>();

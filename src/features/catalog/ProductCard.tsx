@@ -2,9 +2,9 @@ import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, 
 import { Link } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 import { currencyFormat } from '../../app/util/util';
-import { useAppDispatch, useAppSelector } from '../../app/store/ConfigureStore';
 import { addBasketItemAsync } from '../basket/basketSlice';
 import { Product } from "../../models/product";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 
 interface Props {
     product: Product;

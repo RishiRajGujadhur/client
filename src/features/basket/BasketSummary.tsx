@@ -1,6 +1,6 @@
 import { TableContainer, Paper, Table, TableBody, TableRow, TableCell } from '@mui/material';
 import { currencyFormat } from '../../app/util/util';
-import { useAppSelector } from '../../app/store/ConfigureStore';
+import { useAppSelector } from '../../app/store/configureStore';
 
 export default function BasketSummary() {
     const {basket} = useAppSelector(state => state.basket);

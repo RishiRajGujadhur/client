@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import OrderItem from './OrderItem';
 import { Order } from '../../models/order';
 
-
-
 interface OrderListProps {}
 
 const OrderList: React.FC<OrderListProps> = () => {

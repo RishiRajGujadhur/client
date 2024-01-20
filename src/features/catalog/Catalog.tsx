@@ -7,7 +7,8 @@ import ProductSearch from './ProductSearch';
 import RadioButtonGroup from '../../app/components/RadioButtonGroup';
 import CheckboxButtons from '../../app/components/CheckboxButtons';
 import AppPagination from '../../app/components/AppPagination';
-import { useAppSelector, useAppDispatch } from '../../app/store/ConfigureStore';
+import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
+ 
 
 const sortOptions = [
     { value: 'name', label: 'Alphabetical' },

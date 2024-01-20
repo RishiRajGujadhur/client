@@ -3,7 +3,7 @@ import { Add, Delete, Remove } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import BasketSummary from './BasketSummary';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/store/ConfigureStore';
+import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
 import { addBasketItemAsync, removeBasketItemAsync } from './basketSlice';
 
 export default function BasketPage() {
