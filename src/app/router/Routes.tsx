@@ -1,8 +1,8 @@
 import {Navigate, createBrowserRouter } from "react-router-dom";
 import Homepage from "../../features/home/Homepage";
 import App from "../layout/App";
-import Catalog from "../../features/catalogue/Catalogue";
-import ProductDetails from "../../features/catalogue/ProductDetails";
+import Catalog from "../../features/catalog/Catalog";
+import ProductDetails from "../../features/catalog/ProductDetails";
 import AboutPage from "../../features/about/AboutPage"; 
 import NotFound from "../errors/NotFound";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
