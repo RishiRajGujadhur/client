@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react";
-import { Product } from "../../models/product";
-import ProductList from "./ProductList";
+import { useEffect } from 'react';
+import ProductList from './ProductList';
+import LoadingComponent from '../../app/layout/LoadingComponent';
+import { useAppDispatch, useAppSelector } from '../../app/store/ConfigureStore';
+import { fetchProductsAsync, productSelectors } from './catalogSlice';
 
 export default function Catalog() {
-    const [productsVariable, setProducts] = useState<Product[]>([]);
+    const products = useAppSelector(productSelectors.selectAll);
+    const {productsLoaded, status} = useAppSelector(state => state.catalog);
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
-        fetch('http://localhost:5001/api/products')
-            .then(response => response.json())
-            .then(data => setProducts(data))
-    }, [])
-    
+        if (!productsLoaded) dispatch(fetchProductsAsync());
+    }, [productsLoaded, dispatch])
+
+
+    if (status.includes('pending')) return <LoadingComponent message='Loading products...' />
+
     return (
         <>
-            <ProductList products={productsVariable} /> 
+            <ProductList products={products} />
         </>
     )
 }

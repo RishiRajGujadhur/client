@@ -1,56 +1,50 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
-import { Product } from "../../models/product";
-import { Link } from "react-router-dom";
-import { useState } from 'react';
-import agent from '../../app/api/agent';
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Link } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
-import { useStoreContext } from '../../app/context/StoreContext';
 import { currencyFormat } from '../../app/util/util';
+import { useAppDispatch, useAppSelector } from '../../app/store/ConfigureStore';
+import { addBasketItemAsync } from '../basket/basketSlice';
+import { Product } from "../../models/product";
 
 interface Props {
     product: Product;
 }
 
 export default function ProductCard({ product }: Props) {
-    const {setBasket} = useStoreContext();
-    const [loading, setLoading] = useState(false);
-
-    function handleAddItem(productId: number) {
-        setLoading(true);
-        agent.Basket.addItem(productId)
-            .then(basket => setBasket(basket))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false))
-    }
+    const {status} = useAppSelector(state => state.basket);
+    const dispatch = useAppDispatch();
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card>
             <CardHeader
                 avatar={
-                    <Avatar sx={{bgcolor:'primary.main'}}>
+                    <Avatar sx={{ bgcolor: 'secondary.main' }}>
                         {product.name.charAt(0).toUpperCase()}
                     </Avatar>
                 }
                 title={product.name}
                 titleTypographyProps={{
-                    sx: {fontWeight: 'bold', color: 'primary.main'}
+                    sx: { fontWeight: 'bold', color: 'primary.main' }
                 }}
-                />
+            />
             <CardMedia
-                sx={{ height: 140, bgcolor: 'primary.light' }}
+                sx={{ height: 140, backgroundSize: 'contain', bgcolor: 'primary.light' }}
                 image={product.pictureUrl}
                 title={product.name}
             />
             <CardContent>
-                <Typography gutterBottom color='secondary' variant="h5">
-                    Rs {currencyFormat(product.price)}
+                <Typography gutterBottom color='secondary' variant="h5" component="div">
+                    {currencyFormat(product.price)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {product.brand} -  {product.type}
+                    {product.brand} / {product.type}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Add to cart</Button>
+                <LoadingButton
+                    loading={status.includes('pendingAddItem' + product.id)} 
+                    onClick={() => dispatch(addBasketItemAsync({productId: product.id}))} 
+                    size="small">Add to Cart</LoadingButton>
                 <Button component={Link} to={`/catalog/${product.id}`} size="small">View</Button>
             </CardActions>
         </Card>
