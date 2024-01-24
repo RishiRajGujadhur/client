@@ -20,11 +20,13 @@ const CustomerCreationPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" align="center" gutterBottom>
-        Create Customer Profile
-      </Typography>
-      <CustomerForm onCreateCustomer={handleCreateCustomer} />
+    <Container maxWidth="sm" style={{ display: 'flex' }}> 
+      <div style={{ flexGrow: 1, padding: '20px' }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Create Customer Profile
+        </Typography>
+        <CustomerForm onCreateCustomer={handleCreateCustomer} />
+      </div>
     </Container>
   );
 };

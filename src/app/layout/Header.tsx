@@ -1,8 +1,9 @@
 import { ShoppingCart } from '@mui/icons-material';
-import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
+import { AppBar, Badge, Box, IconButton, List, ListItem, Toolbar } from "@mui/material";
 import { Link, NavLink } from 'react-router-dom';
 import { useAppSelector } from '../store/configureStore';
 import SignedInMenu from './SignedInMenu';
+import AppName from './AppName';
 
 const midLinks = [
     { title: 'catalog', path: '/catalog' },
@@ -14,6 +15,7 @@ const rightLinks = [
     { title: 'login', path: '/login' },
     { title: 'register', path: '/register' },
 ]
+
 
 const navLinkStyles = {
     color: 'inherit',
@@ -31,27 +33,22 @@ interface Props {
     darkMode: boolean;
     handleThemeChange: () => void;
 }
-
+const drawerWidth = 240;
 export default function Header({ handleThemeChange, darkMode }: Props) {
     const { basket } = useAppSelector(state => state.basket);
     const { user } = useAppSelector(state => state.account);
     const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
+    const moveNavbar = user ? { width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` } : {} 
 
     return (
-        <AppBar position='static'>
+     <AppBar position='relative'  sx={moveNavbar}> 
+       
+        
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Box display='flex' alignItems='center'>
-                    <Typography
-                        variant='h6'
-                        component={NavLink}
-                        to='/'
-                        sx={navLinkStyles}
-                    >
-                        Store
-                    </Typography>
-                    <Switch checked={darkMode} onChange={handleThemeChange} />
-                </Box>
-
+            {
+                !user &&
+                <AppName darkMode={darkMode} handleThemeChange={handleThemeChange} />
+            }
                 <List sx={{ display: 'flex' }}>
                     {midLinks.map(({ title, path }) => (
                         <ListItem
@@ -100,5 +97,6 @@ export default function Header({ handleThemeChange, darkMode }: Props) {
 
             </Toolbar>
         </AppBar>
+        
     )
 }

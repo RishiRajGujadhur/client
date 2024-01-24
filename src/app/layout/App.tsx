@@ -1,14 +1,17 @@
-import { Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { Box, Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Header from './Header';
 import { useCallback, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingComponent from './LoadingComponent';
-import { useAppDispatch } from '../store/configureStore';
+import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import { fetchBasketAsync } from '../../features/basket/basketSlice';
 import { fetchCurrentUser } from '../../features/account/accountSlice';
 import HomePage from '../../features/home/Homepage';
+import Sidebar from './Sidebar';
+import DisplayLoading from './DisplayLoading';
+
 
 function App() {
   const location = useLocation();
@@ -27,7 +30,7 @@ function App() {
   useEffect(() => {
     initApp().then(() => setLoading(false));
   }, [initApp])
-  
+
   const [darkMode, setDarkMode] = useState(false);
   const palleteType = darkMode ? 'dark' : 'light';
   const theme = createTheme({
@@ -38,25 +41,30 @@ function App() {
       }
     }
   })
-
+  const { user } = useAppSelector(state => state.account);
   function handleThemeChange() {
     setDarkMode(!darkMode);
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <ToastContainer position='bottom-right' hideProgressBar theme='colored'  />
+      <ToastContainer position='bottom-right' hideProgressBar theme='colored' />
       <CssBaseline />
       <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
       {
-        loading ? <LoadingComponent message='Initialising app...' />
-          : location.pathname === '/' ? <HomePage />
-          : <Container sx={{mt: 4}}>
-              <Outlet />
-            </Container>
+        user ?
+          <Container sx={{ display: 'flex', flexGrow: 1 }}>
+            <Sidebar darkMode={darkMode} handleThemeChange={handleThemeChange} />
+            <Box sx={{ flexGrow: 1, padding: '20px' }}>
+              <DisplayLoading loading={loading} locationPathname={location.pathname} />
+            </Box>
+          </Container>
+          : (<Container sx={{ mt: 4 }}>
+            <DisplayLoading loading={loading} locationPathname={location.pathname} />
+          </Container>)
       }
     </ThemeProvider>
   );
 }
 
-export default App
+export default App;
