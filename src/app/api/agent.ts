@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { router } from '../router/Routes';
 import { PaginatedResponse } from "../../models/pagination";
 import { store } from "../store/configureStore";
+import { CustomerFormData } from "../../models/customer_form_data";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
@@ -95,6 +96,11 @@ const Account = {
     currentUser: () => requests.get('account/currentUser')
 }
 
+const Customers = {
+    create: (customerData: CustomerFormData) => requests.post('customers', customerData),
+};
+
+
 function createFormData(item: any) {
     const formData = new FormData();
     for (const key in item) {
@@ -114,6 +120,7 @@ const agent = {
     TestErrors,
     Basket,
     Account, 
-    Admin
+    Admin,
+    Customers, // Add the new Customers object
 }
 export default agent;
