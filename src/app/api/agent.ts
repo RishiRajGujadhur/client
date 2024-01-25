@@ -18,7 +18,6 @@ axios.interceptors.request.use(config => {
     return config;
 })
 
-
 axios.interceptors.response.use(async response => {
     await sleep();
     const pagination = response.headers['pagination'];
@@ -95,9 +94,16 @@ const Customers = {
 const Like = {
     userLiked: (productId: number) => requests.get(`like/user-liked?productId=${productId}`),
     unlikeProduct: (productId: number) => requests.del(`like/unlike?productId=${productId}`),
-    createLike: (productId: number) => requests.get(`like/like?productId=${productId}`),
+    createLike: (productId: number) => requests.get(`like/like/?productId=${productId}`),
 }
 
+const Comment = {
+    createComment: (commentData: any) => requests.post('comments', commentData),
+    getComment: (commentId: number) => requests.get(`comments/${commentId}`),
+    updateComment: (commentId: number, commentData: any) => requests.put(`comments/${commentId}`, commentData),
+    deleteComment: (commentId: number) => requests.del(`comments/${commentId}`),
+    getCommentsByProduct: (productId: number) => requests.get(`comments/${productId}`),
+}
 
 function createFormData(item: any) {
     const formData = new FormData();
@@ -114,11 +120,13 @@ const Admin = {
 }
 
 const agent = {
-    Catalog, 
+    Catalog,
     Basket,
-    Account, 
+    Account,
     Admin,
-    Customers, 
-    Like, 
+    Customers,
+    Like,
+    Comment,
 }
+
 export default agent;

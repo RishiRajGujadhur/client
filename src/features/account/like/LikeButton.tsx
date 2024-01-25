@@ -9,7 +9,6 @@ interface LikeButtonProps {
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({ productId, initialLiked }) => {
-    debugger;
   const [liked, setLiked] = useState(initialLiked);
 
   useEffect(() => {

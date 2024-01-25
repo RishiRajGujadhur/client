@@ -1,7 +1,7 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import AppName from "./AppName";
-import { Person, Favorite, ShoppingBasket, Loop, Collections, ThumbUp, SettingsApplications, Receipt, Reviews, CommentBank, AddAlarm, Assistant, SupportAgent, ManageHistory, SavedSearch, Chat, Visibility, Summarize } from '@mui/icons-material'; // Import the icons you want to use
+import { Person, Favorite, ShoppingBasket, Loop, Collections, ThumbUp, SettingsApplications, Receipt, Reviews, CommentBank, AddAlarm, Assistant, SupportAgent, ManageHistory, SavedSearch, Chat, Visibility, Summarize, EmojiEvents, Redeem, Loyalty } from '@mui/icons-material'; // Import the icons you want to use
 
 const drawerWidth = '240px';
 
@@ -156,6 +156,22 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
               <Visibility />
             </ListItemIcon>
             <ListItemText primary="Watch items" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="Rewards" disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <Loyalty />
+            </ListItemIcon>
+            <ListItemText primary="Rewards" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key="Gift cards" disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <Redeem />
+            </ListItemIcon>
+            <ListItemText primary="Gift cards" />
           </ListItemButton>
         </ListItem>
         <ListItem key="Recommendations" disablePadding>
