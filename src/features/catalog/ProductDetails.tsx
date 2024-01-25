@@ -7,15 +7,17 @@ import { LoadingButton } from '@mui/lab';
 import { addBasketItemAsync, removeBasketItemAsync } from '../basket/basketSlice';
 import { fetchProductAsync, productSelectors } from './catalogSlice';
 import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
+import LikeButton from '../account/like/LikeButton';
 
 export default function ProductDetails() {
     const { id } = useParams<{ id: string }>();
     const dispatch = useAppDispatch();
     const { basket, status } = useAppSelector(state => state.basket);
     const product = useAppSelector(state => productSelectors.selectById(state, parseInt(id!)));
-    const {status: productStatus} = useAppSelector(state => state.catalog);
+    const { status: productStatus } = useAppSelector(state => state.catalog);
     const [quantity, setQuantity] = useState(0);
     const item = basket?.items.find(i => i.productId === product?.id);
+    const { user } = useAppSelector(state => state.account);
 
     useEffect(() => {
         if (item) setQuantity(item.quantity);
@@ -32,17 +34,17 @@ export default function ProductDetails() {
 
         if (!item || quantity > item?.quantity) {
             const updatedQuantity = item ? quantity - item.quantity : quantity;
-            dispatch(addBasketItemAsync({productId: product.id, quantity: updatedQuantity}))
+            dispatch(addBasketItemAsync({ productId: product.id, quantity: updatedQuantity }))
         } else {
             const updatedQuantity = item.quantity - quantity;
-            dispatch(removeBasketItemAsync({productId: product.id, quantity: updatedQuantity}))
+            dispatch(removeBasketItemAsync({ productId: product.id, quantity: updatedQuantity }))
         }
     }
 
     if (productStatus.includes('pending')) return <LoadingComponent message='Loading product...' />
 
     if (!product) return <NotFound />
-
+    console.log(product);
     return (
         <Grid container spacing={6}>
             <Grid item xs={6}>
@@ -79,7 +81,12 @@ export default function ProductDetails() {
                     </Table>
                 </TableContainer>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    { user &&
+                    <Grid item xs={4}> 
+                        <LikeButton productId={product.id} initialLiked={/* Fetch initial liked status */ false} />
+                    </Grid>
+                    }
+                    <Grid item xs={user ? 4: 6}>
                         <TextField
                             onChange={handleInputChange}
                             variant={'outlined'}
@@ -89,7 +96,7 @@ export default function ProductDetails() {
                             value={quantity}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={user ? 4: 6}>
                         <LoadingButton
                             disabled={item?.quantity === quantity || !item && quantity === 0}
                             loading={status.includes('pending')}

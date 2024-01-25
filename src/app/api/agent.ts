@@ -76,14 +76,6 @@ const Catalog = {
     fetchFilters: () => requests.get('products/filters')
 }
 
-const TestErrors = {
-    get400Error: () => requests.get('buggy/bad-request'),
-    get401Error: () => requests.get('buggy/unauthorised'),
-    get404Error: () => requests.get('buggy/not-found'),
-    get500Error: () => requests.get('buggy/server-error'),
-    getValidationError: () => requests.get('buggy/validation-error')
-}
-
 const Basket = {
     get: () => requests.get('basket'),
     addItem: (productId: number, quantity = 1) => requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
@@ -99,6 +91,12 @@ const Account = {
 const Customers = {
     create: (customerData: CustomerFormData) => requests.post('customers', customerData),
 };
+
+const Like = {
+    userLiked: (productId: number) => requests.get(`like/user-liked?productId=${productId}`),
+    unlikeProduct: (productId: number) => requests.del(`like/unlike?productId=${productId}`),
+    createLike: (productId: number) => requests.get(`like/like?productId=${productId}`),
+}
 
 
 function createFormData(item: any) {
@@ -116,11 +114,11 @@ const Admin = {
 }
 
 const agent = {
-    Catalog,
-    TestErrors,
+    Catalog, 
     Basket,
     Account, 
     Admin,
-    Customers, // Add the new Customers object
+    Customers, 
+    Like, 
 }
 export default agent;
