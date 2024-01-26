@@ -1,46 +1,38 @@
-import React, { useState, useEffect } from 'react';
+// Comment.tsx
+import React, { useState } from 'react';
 import { TextField, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
-import agent from '../../app/api/agent';
+import useComments from '../../app/hooks/useComments';
+import CommentPagination from './CommentPagination';
 
 interface CommentProps {
   productId: number;
 }
 
-interface CommentDto {
-  text: string;
-}
-
 const Comment: React.FC<CommentProps> = ({ productId }) => {
-  const [comments, setComments] = useState<CommentDto[]>([]);
+  const { comments, commentsLoaded, handlePageChange, metaData } = useComments(productId);
+ 
   const [newComment, setNewComment] = useState('');
 
-  useEffect(() => {
-    // Fetch comments for the given productId
-    agent.Comment.getCommentsByProduct(productId)
-      .then((response) => setComments(response))
-      .catch((error) => console.error('Error fetching comments:', error));
-  }, [productId]);
-
   const handleAddComment = () => {
-    // Add new comment
-    agent.Comment.createComment({ productId, text: newComment })
-      .then(() => {
-        // Refresh comments after adding a new one
-        agent.Comment.getCommentsByProduct(productId)
-          .then((response) => setComments(response))
-          .catch((error) => console.error('Error fetching comments:', error));
-        setNewComment('');
-      })
-      .catch((error) => console.error('Error adding comment:', error));
+    // Add new comment (you can dispatch an action here if needed)
+    // ...
+
+    // Reset newComment state
+    setNewComment('');
   };
+
+  if (!commentsLoaded) {
+    return <div>Loading comments...</div>;
+  }
+
   return (
     <div>
       <h3>Comments</h3>
       <List>
         {comments.map((comment, index) => (
           <React.Fragment key={index}>
-            <ListItem> 
-                <ListItemText primary={comment.text} />
+            <ListItem>
+              <ListItemText primary={comment.text} />
             </ListItem>
             <Divider />
           </React.Fragment>
@@ -59,6 +51,7 @@ const Comment: React.FC<CommentProps> = ({ productId }) => {
       <Button variant="contained" color="primary" onClick={handleAddComment} style={{ marginTop: '8px' }}>
         Add Comment
       </Button>
+      <CommentPagination metaData={metaData} onPageChange={handlePageChange} />
     </div>
   );
 };

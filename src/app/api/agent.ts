@@ -103,6 +103,7 @@ const Comment = {
     updateComment: (commentId: number, commentData: any) => requests.put(`comments/${commentId}`, commentData),
     deleteComment: (commentId: number) => requests.del(`comments/${commentId}`),
     getCommentsByProduct: (productId: number) => requests.get(`comments/${productId}`),
+    list: (params: URLSearchParams) => requests.get('comments/list/', params),
 }
 
 function createFormData(item: any) {
