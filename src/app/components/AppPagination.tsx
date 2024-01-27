@@ -12,6 +12,7 @@ export default function AppPagination({metaData, onPageChange}: Props) {
     const [pageNumber, setPageNumber] = useState(currentPage);
 
     function handlePageChange(page: number) {
+        console.log('page in app pagination', page)
         setPageNumber(page);
         onPageChange(page);
     }

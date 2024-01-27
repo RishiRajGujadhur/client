@@ -51,8 +51,8 @@ export const commentSlice = createSlice({
     }),
     reducers: {
         setCommentParams: (state, action: PayloadAction<CommentParams>) => {
-            state.commentsLoaded = false;
-            state.commentParams = { ...state.commentParams, ...action.payload, pageNumber: 1 };
+            state.commentsLoaded = false; 
+            state.commentParams = { ...state.commentParams, ...action.payload, productId: action.payload.productId };
         },
         setMetaData: (state, action: PayloadAction<MetaData>) => {
             state.metaData = action.payload;
@@ -63,13 +63,7 @@ export const commentSlice = createSlice({
             state.status = 'pendingFetchComments';
         });
         builder.addCase(fetchCommentsAsync.fulfilled, (state, action) => {
-            console.log('Payload received:', action.payload);
-            
-            // Ensure the payload structure matches CommentDto
             commentsAdapter.setAll(state, action.payload);
-          
-            console.log('State after update:', state);
-            
             state.status = 'idle';
             state.commentsLoaded = true;
           });

@@ -14,6 +14,9 @@ const CommentPagination: React.FC<CommentPaginationProps> = ({ metaData, onPageC
     const [pageNumber, setPageNumber] = useState(currentPage);
   
     function handlePageChange(page: number, pageSize: number, productId:number) {
+      console.log('metadata:', metaData);
+      console.log('Current page: ', currentPage);
+      console.log('Page number: ', page);
       setPageNumber(page);
       onPageChange(page,pageSize,productId);
     }

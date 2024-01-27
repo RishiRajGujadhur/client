@@ -16,6 +16,8 @@ export default function useComments(productId: number) {
   }, [dispatch, commentsLoaded, productId]);
 
   const handlePageChange = (page: number, pageSize: number, productId: number) => {
+
+    console.log('Page number in useComments', page);
     // Update the comment params in the Redux store
     dispatch(setCommentParams({ pageNumber: page, pageSize, productId }));
 
