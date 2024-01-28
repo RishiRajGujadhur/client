@@ -2,16 +2,16 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '../store/configureStore';
-import { commentSelectors, fetchCommentsAsync, setCommentParams } from '../../features/comment/commentSlice';
+import { fetchCommentsForProductAsync, setCommentParams } from '../../features/comment/commentSlice';
 
 export default function useComments(productId: number) {
-  const comments = useAppSelector(commentSelectors.selectAll);
+  const comments = useAppSelector((state) => state.comments.commentsByProductId[productId] || []);
   const { commentsLoaded, metaData } = useAppSelector((state) => state.comments);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (!commentsLoaded) {
-      dispatch(fetchCommentsAsync(productId));
+      dispatch(fetchCommentsForProductAsync(productId));
     }
   }, [dispatch, commentsLoaded, productId]);
 
@@ -22,8 +22,9 @@ export default function useComments(productId: number) {
     dispatch(setCommentParams({ pageNumber: page, pageSize, productId }));
 
     // Fetch comments with the updated params
-    dispatch(fetchCommentsAsync(productId));
+    dispatch(fetchCommentsForProductAsync(productId));
   };
+  
 
   return { comments, commentsLoaded, metaData, handlePageChange };
 }

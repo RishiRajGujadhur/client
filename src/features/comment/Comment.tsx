@@ -27,7 +27,19 @@ const Comment: React.FC<CommentProps> = ({ productId }) => {
 
   return (
     <div>
-      <h3>Comments</h3>
+      <TextField
+        fullWidth
+        multiline
+        rows={1}
+        variant="outlined"
+        label="Add a comment..."
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+        style={{ marginTop: '16px' }}
+      />
+      <Button variant="contained" color="primary" onClick={handleAddComment} style={{ marginTop: '8px' }}>
+        +
+      </Button>
       <List>
         {comments.map((comment, index) => (
           <React.Fragment key={index}>
@@ -38,20 +50,8 @@ const Comment: React.FC<CommentProps> = ({ productId }) => {
           </React.Fragment>
         ))}
       </List>
-      <TextField
-        fullWidth
-        multiline
-        rows={3}
-        variant="outlined"
-        label="Add a comment"
-        value={newComment}
-        onChange={(e) => setNewComment(e.target.value)}
-        style={{ marginTop: '16px' }}
-      />
-      <Button variant="contained" color="primary" onClick={handleAddComment} style={{ marginTop: '8px' }}>
-        Add Comment
-      </Button>
-      <CommentPagination metaData={metaData} onPageChange={handlePageChange} />
+      
+      <CommentPagination metaData={metaData} onPageChange={handlePageChange} productId={productId} />
     </div>
   );
 };

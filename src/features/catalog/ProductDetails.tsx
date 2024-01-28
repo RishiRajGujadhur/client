@@ -9,6 +9,7 @@ import { fetchProductAsync, productSelectors } from './catalogSlice';
 import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
 import LikeButton from '../account/like/LikeButton';
 import Comment from '../comment/Comment';
+import { fetchCommentsForProductAsync } from '../comment/commentSlice';
 
 export default function ProductDetails() {
     const { id } = useParams<{ id: string }>();
@@ -23,6 +24,8 @@ export default function ProductDetails() {
     useEffect(() => {
         if (item) setQuantity(item.quantity);
         if (!product && id) dispatch(fetchProductAsync(parseInt(id)))
+        // Fetch comments for the specific product
+        dispatch(fetchCommentsForProductAsync(product?.id));
     }, [id, item, product, dispatch]);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
