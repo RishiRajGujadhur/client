@@ -5,6 +5,7 @@ export interface CommentDto {
     userId: number;
     productId: number;
     text: string;
+    username: string;
     createdAt: Date;
     // Add other properties as needed
 }

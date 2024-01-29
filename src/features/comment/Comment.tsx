@@ -1,6 +1,6 @@
 // Comment.tsx
 import React, { useState } from 'react';
-import { TextField, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { TextField, Button, List, ListItem, ListItemText, Divider, Avatar } from '@mui/material';
 import useComments from '../../app/hooks/useComments';
 import CommentPagination from './CommentPagination';
 import { toast } from 'react-toastify';
@@ -16,7 +16,7 @@ const Comment: React.FC<CommentProps> = ({ productId }) => {
   const handleTextFieldKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleAddComment(newComment);
-      setNewComment(''); 
+      setNewComment('');
       toast.success("Comment Posted!");
     }
   };
@@ -38,12 +38,16 @@ const Comment: React.FC<CommentProps> = ({ productId }) => {
         onKeyPress={handleTextFieldKeyPress} // Handle "Enter" key press
         style={{ marginTop: '16px' }}
       />
-   
+
       <List>
         {comments.map((comment, index) => (
           <React.Fragment key={index}>
-            <ListItem>
-              <ListItemText primary={comment.text} />
+            <ListItem alignItems="flex-start">
+              <Avatar src={comment.username} alt={comment.username} />
+              <ListItemText
+                primary={`${comment.username} | ${comment.text}`}
+                primaryTypographyProps={{ noWrap: true }}
+              />
             </ListItem>
             <Divider />
           </React.Fragment>
