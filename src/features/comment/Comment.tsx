@@ -3,22 +3,22 @@ import React, { useState } from 'react';
 import { TextField, Button, List, ListItem, ListItemText, Divider } from '@mui/material';
 import useComments from '../../app/hooks/useComments';
 import CommentPagination from './CommentPagination';
+import { toast } from 'react-toastify';
 
 interface CommentProps {
   productId: number;
 }
 
 const Comment: React.FC<CommentProps> = ({ productId }) => {
-  const { comments, commentsLoaded, handlePageChange, metaData } = useComments(productId);
- 
+  const { comments, commentsLoaded, handlePageChange, metaData, handleAddComment } = useComments(productId);
   const [newComment, setNewComment] = useState('');
 
-  const handleAddComment = () => {
-    // Add new comment (you can dispatch an action here if needed)
-    // ...
-
-    // Reset newComment state
-    setNewComment('');
+  const handleTextFieldKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleAddComment(newComment);
+      setNewComment(''); 
+      toast.success("Comment Posted!");
+    }
   };
 
   if (!commentsLoaded) {
@@ -35,11 +35,10 @@ const Comment: React.FC<CommentProps> = ({ productId }) => {
         label="Add a comment..."
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
+        onKeyPress={handleTextFieldKeyPress} // Handle "Enter" key press
         style={{ marginTop: '16px' }}
       />
-      <Button variant="contained" color="primary" onClick={handleAddComment} style={{ marginTop: '8px' }}>
-        +
-      </Button>
+   
       <List>
         {comments.map((comment, index) => (
           <React.Fragment key={index}>
@@ -50,7 +49,6 @@ const Comment: React.FC<CommentProps> = ({ productId }) => {
           </React.Fragment>
         ))}
       </List>
-      
       <CommentPagination metaData={metaData} onPageChange={handlePageChange} productId={productId} />
     </div>
   );

@@ -40,12 +40,25 @@ export const fetchCommentsForProductAsync = createAsyncThunk<CommentDto[], numbe
   }
 );
 
+export const addCommentAsync = createAsyncThunk<CommentDto, { productId: number, text: string }, { state: RootState, dispatch: AppDispatch }>(
+  'comments/addCommentAsync',
+  async ({ productId, text }, thunkAPI) => {
+    try {
+      const response = await agent.Comment.createComment({ productId, text });
+      return response; // Assuming the API returns the newly created comment
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue({ error: error.data });
+    }
+  }
+);
+
+
 export const commentSlice = createSlice({
   name: 'comments',
   initialState: commentsAdapter.getInitialState<CommentState>({
     commentsLoaded: false,
     status: 'idle',
-    commentParams: { pageNumber: 1, pageSize: 2, productId: 1 },
+    commentParams: { pageNumber: 1, pageSize: 10, productId: 1 },
     metaData: null,
     commentsByProductId: {}, // Initialize commentsByProductId
   }),
@@ -76,6 +89,18 @@ export const commentSlice = createSlice({
       console.error('Fetch comments failed:', action.payload);
       state.status = 'idle';
     });
+
+     // Add the new case for addCommentAsync
+     builder.addCase(addCommentAsync.fulfilled, (state, action) => {
+      // Assuming the API returns the newly created comment
+      commentsAdapter.addOne(state, action.payload);
+    });
+
+    builder.addCase(addCommentAsync.rejected, (state, action) => {
+      console.error('Add comment failed:', action.payload);
+      state.status = 'idle';
+    });
+
   })
 });
 

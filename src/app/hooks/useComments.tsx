@@ -1,12 +1,14 @@
 // useComments.tsx
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '../store/configureStore';
-import { fetchCommentsForProductAsync, setCommentParams } from '../../features/comment/commentSlice';
+import { addCommentAsync, fetchCommentsForProductAsync, setCommentParams } from '../../features/comment/commentSlice';
+
 
 export default function useComments(productId: number) {
   const comments = useAppSelector((state) => state.comments.commentsByProductId[productId] || []);
   const { commentsLoaded, metaData } = useAppSelector((state) => state.comments);
+  const [newComment, setNewComment] = useState('');
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -16,8 +18,6 @@ export default function useComments(productId: number) {
   }, [dispatch, commentsLoaded, productId]);
 
   const handlePageChange = (page: number, pageSize: number, productId: number) => {
-
-    console.log('Page number in useComments', page);
     // Update the comment params in the Redux store
     dispatch(setCommentParams({ pageNumber: page, pageSize, productId }));
 
@@ -25,6 +25,12 @@ export default function useComments(productId: number) {
     dispatch(fetchCommentsForProductAsync(productId));
   };
   
+  const handleAddComment = (text: string) => {
+    // Dispatch the addCommentAsync action
+    dispatch(addCommentAsync({ productId, text }));
+    dispatch(fetchCommentsForProductAsync(productId));
+    setNewComment(''); // Clear the textfield
+  };
 
-  return { comments, commentsLoaded, metaData, handlePageChange };
+  return { comments, commentsLoaded, metaData, handlePageChange, handleAddComment,newComment, setNewComment   };
 }
