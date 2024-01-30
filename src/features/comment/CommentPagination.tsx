@@ -5,7 +5,7 @@ import { CommentPaginationProps } from "../../models/comment/CommentPaginationPr
 // Ensure that metaData is not null or undefined
 const CommentPagination: React.FC<CommentPaginationProps> = ({ metaData, onPageChange, productId }) => {
   // Destructure metaData or provide default values
-  const { pageSize, currentPage, totalCount, totalPages } = metaData ?? { pageSize: 1, currentPage: 1, totalCount: 0, totalPages: 1 };
+  const { pageSize, currentPage, totalCount, totalPages } = metaData ?? { pageSize: 10, currentPage: 1, totalCount: 0, totalPages: 1 };
 
   // Set up state for current page number
   const [pageNumber, setPageNumber] = useState(currentPage);
@@ -33,7 +33,7 @@ const CommentPagination: React.FC<CommentPaginationProps> = ({ metaData, onPageC
         size='large'
         count={totalPages}
         page={pageNumber}
-        onChange={(_e, page) => handlePageChange(page, totalPages, productId)}
+        onChange={(_e, page) => handlePageChange(page, pageSize, productId)}
       />
     </Box>
   );

@@ -5,9 +5,8 @@ import { RootState } from "../../app/store/configureStore";
 import { CommentState } from "../../models/comment/CommentState";
 import { fetchCommentsForProductAsync } from "./asyncThunks/fetchCommentsForProductAsync";
 import { addCommentAsync } from "./asyncThunks/addCommentAsync";
-
+ 
 const commentsAdapter = createEntityAdapter<CommentDto>();
-
 export const commentSlice = createSlice({
   name: 'comments',
   initialState: commentsAdapter.getInitialState<CommentState>({
@@ -18,13 +17,13 @@ export const commentSlice = createSlice({
     commentsByProductId: {}, // Initialize commentsByProductId
   }),
   reducers: {
-    // Set the comment parameters and mark comments as not loaded
-    setCommentParams: (state, action: PayloadAction<CommentParams>) => {
-      state.commentParams = { ...state.commentParams, ...action.payload, pageNumber: action.payload.pageNumber };
-      state.commentsLoaded = false;
-    },
     setMetaData: (state, action: PayloadAction<MetaData>) => {
       state.metaData = action.payload;
+    },
+    // Set the comment parameters and mark comments as not loaded
+    setCommentParams: (state, action: PayloadAction<CommentParams>) => {
+      state.commentParams = { ...action.payload, pageNumber: action.payload.pageNumber };
+      state.commentsLoaded = false;
     },
     setCommentsForProduct: (state, action: PayloadAction<{ productId: number; comments: CommentDto[] }>) => {
       const { productId, comments } = action.payload;

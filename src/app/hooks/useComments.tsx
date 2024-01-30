@@ -20,7 +20,7 @@ export default function useComments(productId: number) {
   const handlePageChange = (page: number, pageSize: number, productId: number) => {
     // Update the comment params in the Redux store
     dispatch(setCommentParams({ pageNumber: page, pageSize, productId }));
-
+    
     // Fetch comments with the updated params
     dispatch(fetchCommentsForProductAsync(productId));
   };
