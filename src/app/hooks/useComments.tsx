@@ -1,9 +1,9 @@
-// useComments.tsx
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '../store/configureStore';
-import { addCommentAsync, fetchCommentsForProductAsync, setCommentParams } from '../../features/comment/commentSlice';
-
+import { setCommentParams } from '../../features/comment/commentSlice';
+import { addCommentAsync } from "../../features/comment/asyncThunks/addCommentAsync";
+import { fetchCommentsForProductAsync } from "../../features/comment/asyncThunks/fetchCommentsForProductAsync";
 
 export default function useComments(productId: number) {
   const comments = useAppSelector((state) => state.comments.commentsByProductId[productId] || []);
@@ -32,5 +32,5 @@ export default function useComments(productId: number) {
     setNewComment(''); // Clear the textfield
   };
 
-  return { comments, commentsLoaded, metaData, handlePageChange, handleAddComment,newComment, setNewComment   };
+  return { comments, commentsLoaded, metaData, handlePageChange, handleAddComment, newComment, setNewComment };
 }

@@ -1,57 +1,12 @@
-// commentSlice.ts
-import { createAsyncThunk, createEntityAdapter, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import agent from "../../app/api/agent";
+import { createEntityAdapter, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MetaData } from "../../models/pagination";
-import { CommentDto, CommentParams } from "../../models/comment";
-import { AppDispatch, RootState } from "../../app/store/configureStore";
-
-interface CommentState {
-  commentsLoaded: boolean;
-  status: string;
-  commentParams: CommentParams;
-  metaData: MetaData | null;
-  commentsByProductId: Record<number, CommentDto[]>; // Add this property
-}
+import { CommentDto, CommentParams } from "../../models/comment/comment";
+import { RootState } from "../../app/store/configureStore";
+import { CommentState } from "../../models/comment/CommentState";
+import { fetchCommentsForProductAsync } from "./asyncThunks/fetchCommentsForProductAsync";
+import { addCommentAsync } from "./asyncThunks/addCommentAsync";
 
 const commentsAdapter = createEntityAdapter<CommentDto>();
-
-function getAxiosParams(commentParams: CommentParams, productId: number) {
-  const params = new URLSearchParams();
-  params.append('pageNumber', commentParams.pageNumber.toString());
-  params.append('pageSize', commentParams.pageSize.toString());
-  params.append('ProductId', productId.toString());
-  return params;
-}
-
-export const fetchCommentsForProductAsync = createAsyncThunk<CommentDto[], number, { state: RootState, dispatch: AppDispatch }>(
-  'comments/fetchCommentsForProductAsync',
-  async (productId, thunkAPI) => {
-    const commentParams = thunkAPI.getState().comments.commentParams;
-    const params = getAxiosParams(commentParams, productId);
-    try {
-      const response = await agent.Comment.list(params);
-      thunkAPI.dispatch(setMetaData(response.metaData));
-      // Dispatch a new action to store comments for the specific product
-      thunkAPI.dispatch(setCommentsForProduct({ productId, comments: response.items }));
-      return response.items;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.data });
-    }
-  }
-);
-
-export const addCommentAsync = createAsyncThunk<CommentDto, { productId: number, text: string }, { state: RootState, dispatch: AppDispatch }>(
-  'comments/addCommentAsync',
-  async ({ productId, text }, thunkAPI) => {
-    try {
-      const response = await agent.Comment.createComment({ productId, text });
-      return response; // Assuming the API returns the newly created comment
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.data });
-    }
-  }
-);
-
 
 export const commentSlice = createSlice({
   name: 'comments',
@@ -63,9 +18,10 @@ export const commentSlice = createSlice({
     commentsByProductId: {}, // Initialize commentsByProductId
   }),
   reducers: {
+    // Set the comment parameters and mark comments as not loaded
     setCommentParams: (state, action: PayloadAction<CommentParams>) => {
+      state.commentParams = { ...state.commentParams, ...action.payload, pageNumber: action.payload.pageNumber };
       state.commentsLoaded = false;
-      state.commentParams = { ...state.commentParams, ...action.payload, pageNumber: action.payload.pageNumber};
     },
     setMetaData: (state, action: PayloadAction<MetaData>) => {
       state.metaData = action.payload;
@@ -90,9 +46,7 @@ export const commentSlice = createSlice({
       state.status = 'idle';
     });
 
-     // Add the new case for addCommentAsync
-     builder.addCase(addCommentAsync.fulfilled, (state, action) => {
-      // Assuming the API returns the newly created comment
+    builder.addCase(addCommentAsync.fulfilled, (state, action) => {
       commentsAdapter.addOne(state, action.payload);
     });
 
@@ -104,6 +58,8 @@ export const commentSlice = createSlice({
   })
 });
 
+// Reducer to get/set the comment  and mark comments as not/loaded
 export const { setCommentParams, setMetaData, setCommentsForProduct } = commentSlice.actions;
 
+// Selectors to get comments from the state
 export const commentSelectors = commentsAdapter.getSelectors((state: RootState) => state.comments);

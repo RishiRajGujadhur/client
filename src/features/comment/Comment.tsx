@@ -1,25 +1,22 @@
 // Comment.tsx
 import React, { useState } from 'react';
-import { TextField, Button, List, ListItem, ListItemText, Divider, Avatar } from '@mui/material';
+import { TextField, List, ListItem, ListItemText, Divider, Avatar } from '@mui/material';
 import useComments from '../../app/hooks/useComments';
 import CommentPagination from './CommentPagination';
 import { toast } from 'react-toastify';
-
-interface CommentProps {
-  productId: number;
-}
+import { CommentProps } from '../../models/comment/CommentProps';
 
 const Comment: React.FC<CommentProps> = ({ productId }) => {
   const { comments, commentsLoaded, handlePageChange, metaData, handleAddComment } = useComments(productId);
   const [newComment, setNewComment] = useState('');
 
-  const handleTextFieldKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+   function handleTextFieldKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       handleAddComment(newComment);
       setNewComment('');
       toast.success("Comment Posted!");
     }
-  };
+  }
 
   if (!commentsLoaded) {
     return <div>Loading comments...</div>;
