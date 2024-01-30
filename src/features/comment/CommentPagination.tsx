@@ -19,7 +19,7 @@ const CommentPagination: React.FC<CommentPaginationProps> = ({ metaData, onPageC
   return (
     <Box display='flex' justifyContent='space-between' alignItems='center' sx={{ marginBottom: 3 }}>
       {/* Display comment range */}
-      <Typography variant='body1'>
+      <Typography variant='body2'>
         Displaying {(currentPage - 1) * pageSize + 1}-
         {currentPage * pageSize > totalCount!
           ? totalCount

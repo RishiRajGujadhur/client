@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
 import LikeButton from '../account/like/LikeButton';
 import Comment from '../comment/Comment';
 import { fetchCommentsForProductAsync } from "../comment/asyncThunks/fetchCommentsForProductAsync";
+import CommentBox from '../comment/CommentBox';
 
 export default function ProductDetails() {
     const { id } = useParams<{ id: string }>();
@@ -114,11 +115,12 @@ export default function ProductDetails() {
                             </LoadingButton>
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid container spacing={6}>
-                </Grid>
+                </Grid> 
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12}> 
+                { !user &&  <Typography variant='h6' sx={{ mb: 2 }}>Sign in to leave a comment.</Typography>}
+                { user && <CommentBox productId={product.id}/> }
+                <Divider sx={{ mb: 2 }} />
                 <Comment productId={product.id} />
             </Grid>
         </Grid>

@@ -1,14 +1,12 @@
 import { Box, Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Header from './Header';
 import { useCallback, useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import LoadingComponent from './LoadingComponent';
+import 'react-toastify/dist/ReactToastify.css'; 
 import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import { fetchBasketAsync } from '../../features/basket/basketSlice';
-import { fetchCurrentUser } from '../../features/account/accountSlice';
-import HomePage from '../../features/home/Homepage';
+import { fetchCurrentUser } from '../../features/account/accountSlice'; 
 import Sidebar from './Sidebar';
 import DisplayLoading from './DisplayLoading';
 
