@@ -11,6 +11,7 @@ import LikeButton from '../account/like/LikeButton';
 import Comment from '../comment/Comment';
 import { fetchCommentsForProductAsync } from "../comment/asyncThunks/fetchCommentsForProductAsync";
 import CommentBox from '../comment/CommentBox';
+import { setCommentParams } from '../comment/commentSlice';
 
 export default function ProductDetails() {
     const { id } = useParams<{ id: string }>();
@@ -24,10 +25,13 @@ export default function ProductDetails() {
 
     useEffect(() => {
         if (item) setQuantity(item.quantity);
-        if (!product && id) dispatch(fetchProductAsync(parseInt(id)))
-        // Fetch comments for the specific product
-        dispatch(fetchCommentsForProductAsync(product?.id));
-    }, [id, item, product, dispatch]);
+        if (!product && id) dispatch(fetchProductAsync(parseInt(id)));
+
+        if (product?.id) {
+            dispatch(setCommentParams({ pageNumber: 1, pageSize:10, productId: product.id }));
+            dispatch(fetchCommentsForProductAsync(product.id));
+        }
+    }, [id, item, product?.id, dispatch]);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         if (parseInt(event.currentTarget.value) >= 0)
