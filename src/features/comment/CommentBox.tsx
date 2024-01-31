@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField} from '@mui/material';
-import useComments from '../../app/hooks/useComments';
 import { toast } from 'react-toastify';
 import { CommentProps } from '../../models/comment/CommentProps';
+import usePostComment from './usePostComment';
+ 
 
 const CommentBox: React.FC<CommentProps> = ({ productId }) => {
-const { handleAddComment } = useComments(productId);
-const [newComment, setNewComment] = useState('');
-
+const { handleAddComment, newComment, setNewComment } = usePostComment();
 function handleTextFieldKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
-      handleAddComment(newComment);
+      handleAddComment(newComment, productId);
       setNewComment('');
       toast.success("Comment Posted!");
     }

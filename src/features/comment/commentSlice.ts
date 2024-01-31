@@ -35,6 +35,7 @@ export const commentSlice = createSlice({
       state.status = 'pendingFetchComments';
     });
     builder.addCase(fetchCommentsForProductAsync.fulfilled, (state, action) => {
+      console.log('Fetch comments succeeded:', action.payload);
       commentsAdapter.setAll(state, action.payload);
       state.status = 'idle';
       state.commentsLoaded = true;
