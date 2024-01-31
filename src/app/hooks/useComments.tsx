@@ -27,7 +27,8 @@ export default function useComments(productId: number) {
   
   const handleAddComment = (text: string) => {
     // Dispatch the addCommentAsync action
-    dispatch(addCommentAsync({ productId, text }));
+    dispatch(addCommentAsync({ productId, text })); 
+    dispatch(setCommentParams({ pageNumber: 1, pageSize:10, productId }));
     dispatch(fetchCommentsForProductAsync(productId));
     setNewComment(''); // Clear the textfield
   };
