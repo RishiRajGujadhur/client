@@ -1,16 +1,16 @@
 import React from 'react';
-import { Invoice } from '../../../models/invoice/invoice';
-import './InvoicePage.css';
+import './ReceiptPage.css';
 import { Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper, Divider, TableContainer } from '@mui/material';
+import { Receipt } from '../../models/receipt/receipt';
 
-interface InvoiceProps {
-    invoice: Invoice;
+interface ReceiptProps {
+    receipt: Receipt;
 }
 function ccyFormat(num: number) {
     return `${num.toFixed(2)}`;
 }
 
-function subtotal(items: Invoice) {
+function subtotal(items: Receipt) {
     return items.products.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
 }
 
@@ -18,19 +18,19 @@ function subtotal(items: Invoice) {
 const currency = 'Rs';
 const TAX_RATE = 0.15;
 
-const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
-    const { sender, client, information, products, translate, bottomNotice } = invoice;
-    const invoiceSubtotal = subtotal(invoice);
-    const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-    const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+const ReceiptPage: React.FC<ReceiptProps> = ({ receipt }) => {
+    const { sender, client, information, products, translate } = receipt;
+    const ReceiptSubtotal = subtotal(receipt);
+    const ReceiptTaxes = TAX_RATE * ReceiptSubtotal;
+    const ReceiptTotal = ReceiptTaxes + ReceiptSubtotal;
     return (
-        <Paper elevation={12} className="invoice-page">
+        <Paper elevation={12} className="receipt-page">
             <div className="header">
                 <div>
-                    <img src={invoice.images.logo} alt="Logo" className="logo" />
+                    <img src={receipt.images.logo} alt="Logo" className="logo" />
                 </div>
                 <div>
-                    <Typography variant="h5">INVOICE</Typography>
+                    <Typography variant="h5">Receipt</Typography>
                 </div>
             </div>
             <div className="sender-info">
@@ -43,17 +43,16 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
             <Divider sx={{ borderBottomWidth: 5 }} />
             <div className="client-info">
                 <div>
-                    <Typography variant='subtitle2'>Bill To</Typography>
+                    <Typography variant='subtitle2'>Sold To</Typography>
                     <Typography variant='subtitle2'>{client.company}</Typography>
                     <Typography variant='body2'>{client.address}</Typography>
                     <Typography variant='body2'>{client.zip}</Typography>
                     <Typography variant='body2'>{client.city}</Typography>
                     <Typography variant='body2'>{client.country}</Typography>
                 </div>
-                <div className="invoice-info">
-                    <Typography variant='caption'>Invoice# <strong>{information.number}</strong></Typography>
-                    <Typography variant='body2'><strong>Invoice Date:</strong> {information.date}</Typography>
-                    <Typography variant='body2'><strong>Due Date:</strong> {information.dueDate}</Typography>
+                <div className="Receipt-info">
+                    <Typography variant='caption'>Receipt# <strong>{information.number}</strong></Typography>
+                    <Typography variant='body2'><strong>Transaction Date:</strong> {information.date}</Typography> 
                 </div>
             </div>
 
@@ -62,8 +61,7 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
 
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center" colSpan={3}>
-
+                            <TableCell align="center" colSpan={3}> 
                             </TableCell>
                             <TableCell align="right">Price</TableCell>
                         </TableRow>
@@ -86,16 +84,16 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
                         <TableRow>
                             <TableCell rowSpan={3} colSpan={2} />
                             <TableCell colSpan={1}> <Typography variant="subtitle2">Subtotal</Typography>   </TableCell>
-                            <TableCell align="right">{currency} {ccyFormat(invoiceSubtotal)}</TableCell>
+                            <TableCell align="right">{currency} {ccyFormat(ReceiptSubtotal)}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell><Typography variant="subtitle2">Tax ({`${(TAX_RATE * 100).toFixed(0)} %`})</Typography></TableCell>
 
-                            <TableCell align="right">{currency} {ccyFormat(invoiceTaxes)}</TableCell>
+                            <TableCell align="right">{currency} {ccyFormat(ReceiptTaxes)}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell colSpan={1}><Typography variant="subtitle2">Total</Typography></TableCell>
-                            <TableCell align="right"><Typography variant="subtitle2">{currency} {ccyFormat(invoiceTotal)}</Typography></TableCell>
+                            <TableCell colSpan={1}><Typography variant="subtitle2">Total amount paid</Typography></TableCell>
+                            <TableCell align="right"><Typography variant="subtitle2">{currency} {ccyFormat(ReceiptTotal)}</Typography></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -103,11 +101,10 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
             <Divider sx={{ borderBottomWidth: 5 }} />
 
             <div className="bottom-notice">
-                <Typography variant="subtitle2">Terms and Conditions</Typography>
-                <Typography variant="body2">Thanks for your business. {bottomNotice}</Typography>
+                <Typography variant="subtitle2">Thanks for shopping with us. </Typography> 
             </div>
         </Paper>
     );
 };
 
-export default InvoicePage;
+export default ReceiptPage;

@@ -1,4 +1,4 @@
-import { Invoice } from "../../../models/invoice/invoice";
+import { Invoice } from "../../models/invoice/invoice";
 
 export function createInvoice(data: Invoice) {
     // Generate the invoice data
