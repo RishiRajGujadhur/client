@@ -1,0 +1,72 @@
+.invoice-page {
+    /* Styles for the invoice page container */
+
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px;
+}
+
+.header {
+    /* Styles for the header section */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.logo {
+    /* Styles for the logo image */
+    max-width: 200px;
+}
+
+.sender-info {
+    /* Styles for the sender information section */
+    text-align: right;
+    margin-bottom: 40px;
+}
+
+.client-info {
+    /* Styles for the client information section */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.invoice-info {
+    /* Styles for the invoice information section */
+    text-align: right;
+}
+
+.product-table {
+    /* Styles for the product table */
+    margin-bottom: 40px; 
+    width: 100%;  
+}
+
+.totals-right hr {
+    width:40%; 
+    margin-left:60%;  
+}
+
+.product-header {
+    /* Styles for the product table headers */
+    border-bottom: 1px solid #1f1f1f;
+}
+
+.total {
+    /* Styles for the footer section */
+    margin-bottom: 40px; 
+}
+
+.totals-right p{
+    /* Styles for the footer information section */
+    text-align: right; 
+}
+
+.bottom-notice {
+    /* Styles for the bottom notice section */
+
+    margin-top: 30px;
+    margin-bottom: 40px;
+}

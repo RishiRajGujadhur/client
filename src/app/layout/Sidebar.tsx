@@ -54,12 +54,12 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
             <ListItemText primary="Wishlist" />
           </ListItemButton>
         </ListItem>
-        <ListItem key="Orders" disablePadding>
+        <ListItem key="Purchases" disablePadding>
           <ListItemButton>
             <ListItemIcon>
               <ShoppingBasket />
             </ListItemIcon>
-            <ListItemText primary="Orders" />
+            <ListItemText primary="Purchases" />
           </ListItemButton>
         </ListItem>
         <ListItem key="Returns" disablePadding>
