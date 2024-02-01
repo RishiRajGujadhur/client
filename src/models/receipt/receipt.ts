@@ -9,7 +9,8 @@ export interface Receipt {
     information: {
         number: string;
         date: string;
-        paymentDate: string;
+        paymentDate: string; 
+        paymentMethod: string; 
     };
     products: {
         quantity: string;

@@ -47,7 +47,9 @@ export var receiptData = {
         // Receipt data
         "date": "12-12-2021",
         // Receipt due date
-        "paymentDate": "31-12-2021"
+        "paymentDate": "31-12-2021",
+        
+        "paymentMethod": "Bank transfer"
     },
 
     // Now let's add some products! Calculations will be done automatically for you.

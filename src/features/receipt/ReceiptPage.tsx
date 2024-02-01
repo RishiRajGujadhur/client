@@ -52,7 +52,8 @@ const ReceiptPage: React.FC<ReceiptProps> = ({ receipt }) => {
                 </div>
                 <div className="Receipt-info">
                     <Typography variant='caption'>Receipt# <strong>{information.number}</strong></Typography>
-                    <Typography variant='body2'><strong>Transaction Date:</strong> {information.date}</Typography> 
+                    <Typography variant='body2'><strong>Payment Date:</strong> {information.date}</Typography> 
+                    <Typography variant='body2'><strong>Payment method:</strong> {information.paymentMethod}</Typography> 
                 </div>
             </div>
 
