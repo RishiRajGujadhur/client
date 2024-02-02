@@ -1,11 +1,4 @@
-export interface Invoice {
-    // customer: {
-    //     name: string;
-    //     address: string;
-    //     city: string;
-    //     country: string;
-    //     postalCode: string;
-    // };
+export interface Invoice { 
     information: {
         number: string;
         date: string;
@@ -47,6 +40,7 @@ export interface Invoice {
         template?: string;
     };
     client: {
+        name: string;
         company: string;
         address: string;
         zip: string;

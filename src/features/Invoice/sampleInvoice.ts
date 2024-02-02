@@ -3,6 +3,7 @@ export var data = {
 
     // Let's add a recipient
     "client": {
+        "name": "Clientname",
         "company": "Client Corp",
         "address": "Clientstreet 456",
         "zip": "4567 CD",

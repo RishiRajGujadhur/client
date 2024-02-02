@@ -3,6 +3,7 @@ export var receiptData = {
 
     // Let's add a recipient
     "client": {
+        "name": "Client Name",
         "company": "Client Corp",
         "address": "Clientstreet 456",
         "zip": "4567 CD",

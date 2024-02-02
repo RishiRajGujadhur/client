@@ -1,11 +1,4 @@
 export interface Receipt {
-    // customer: {
-    //     name: string;
-    //     address: string;
-    //     city: string;
-    //     country: string;
-    //     postalCode: string;
-    // };
     information: {
         number: string;
         date: string;
@@ -47,6 +40,7 @@ export interface Receipt {
         template?: string;
     };
     client: {
+        name: string;
         company: string;
         address: string;
         zip: string;

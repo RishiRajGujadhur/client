@@ -4,6 +4,8 @@ import { router } from '../router/Routes';
 import { PaginatedResponse } from "../../models/pagination";
 import { store } from "../store/configureStore";
 import { CustomerFormData } from "../../models/customer_form_data";
+import { Receipt } from "../../models/receipt/receipt";
+import { Invoice } from "../../models/invoice/invoice";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
@@ -120,6 +122,24 @@ const Admin = {
     deleteProduct: (id: number) => requests.del(`products/${id}`)
 }
 
+
+const Receipts = {
+    list: () => requests.get('receipts'),
+    details: (id: number) => requests.get(`receipts/${id}`),
+    create: (receiptData: Receipt) => requests.post('receipts', receiptData),
+    update: (id: number, receiptData: Receipt) => requests.put(`receipts/${id}`, receiptData),
+    delete: (id: number) => requests.del(`receipts/${id}`)
+}
+
+const Invoices = {
+    list: () => requests.get('Invoices'),
+    details: (id: number) => requests.get(`Invoices/${id}`),
+    create: (receiptData: Invoice) => requests.post('Invoices', receiptData),
+    update: (id: number, receiptData: Invoice) => requests.put(`Invoices/${id}`, receiptData),
+    delete: (id: number) => requests.del(`Invoices/${id}`)
+}
+
+
 const agent = {
     Catalog,
     Basket,
@@ -128,6 +148,8 @@ const agent = {
     Customers,
     Like,
     Comment,
+    Receipts,
+    Invoices,
 }
 
 export default agent;

@@ -44,7 +44,7 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
             <div className="client-info">
                 <div>
                     <Typography variant='subtitle2'>Bill To</Typography>
-                    <Typography variant='subtitle2'>{client.company}</Typography>
+                    <Typography variant='subtitle2'>{client.name} | {client.company}</Typography>
                     <Typography variant='body2'>{client.address}</Typography>
                     <Typography variant='body2'>{client.zip}</Typography>
                     <Typography variant='body2'>{client.city}</Typography>
