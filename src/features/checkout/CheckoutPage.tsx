@@ -8,37 +8,32 @@ import { validationSchema } from './checkoutValidation';
 import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
 import agent from '../../app/api/agent';
 import { clearBasket } from '../basket/basketSlice';
-import { LoadingButton } from '@mui/lab'; 
+import { LoadingButton } from '@mui/lab';  
 
-const steps = ['Shipping address', 'Review your order', 'Payment details'];
+const steps = ['Shipping address', 'Review your order'];
 
 export default function CheckoutPage() {
     const [activeStep, setActiveStep] = useState(0);
     const [orderNumber, setOrderNumber] = useState(0);
     const [loading, setLoading] = useState(false);
     const dispatch = useAppDispatch(); 
-    const [cardComplete, setCardComplete] = useState<any>({ cardNumber: false, cardExpiry: false, cardCvc: false });
     const [paymentMessage, setPaymentMessage] = useState('');
     const [paymentSucceeded, setPaymentSucceeded] = useState(false);
-    const { basket } = useAppSelector(state => state.basket);
- 
-
-    function getStepContent(step: number) {
+    
+    function getStepContent(step: number) {  
         switch (step) {
             case 0:
                 return <AddressForm />;
             case 1:
                 return <Review />;
             case 2:
-                return <>Payment step</>;
+                return <> Hello World </>; 
+                break; // Add a break statement
             default:
                 throw new Error('Unknown step');
         }
     }
 
-    function onCardInputChange(event: any) { 
-        setCardComplete({ ...cardComplete, [event.elementType]: event.complete })
-    }
 
     const currentValidationSchema = validationSchema[activeStep];
 
@@ -58,7 +53,7 @@ export default function CheckoutPage() {
 
     async function submitOrder(data: FieldValues) {
         setLoading(true);
-        const { nameOnCard, saveAddress, ...shippingAddress } = data;
+        const { saveAddress, ...shippingAddress } = data;
         try {
             if ('succeeded') {
                 const orderNumber = await agent.Orders.create({ saveAddress, shippingAddress });
@@ -91,17 +86,7 @@ export default function CheckoutPage() {
         setActiveStep(activeStep - 1);
     };
 
-    function submitDisabled(): boolean {
-        if (activeStep === steps.length - 1) {
-            return !cardComplete.cardCvc
-                || !cardComplete.cardExpiry
-                || !cardComplete.cardNumber
-                || !methods.formState.isValid
-        } else {
-            return !methods.formState.isValid
-        }
-    }
-
+   
     return (
         <FormProvider {...methods}>
             <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -123,9 +108,7 @@ export default function CheckoutPage() {
                             </Typography>
                             {paymentSucceeded ? (
                                 <Typography variant="subtitle1">
-                                    Your order number is #{orderNumber}. We have not emailed your order
-                                    confirmation, and will not send you an update when your order has
-                                    shipped as this is a fake store!
+                                    Your order number is #{orderNumber}.
                                 </Typography>
                             ) : (
                                 <Button variant='contained' onClick={handleBack}>
@@ -143,8 +126,7 @@ export default function CheckoutPage() {
                                     </Button>
                                 )}
                                 <LoadingButton
-                                    loading={loading}
-                                    disabled={submitDisabled()}
+                                    loading={loading} 
                                     type='submit'
                                     variant="contained"
                                     sx={{ mt: 3, ml: 1 }}
