@@ -19,7 +19,7 @@ const currency = 'Rs';
 const TAX_RATE = 0.15;
 
 const ReceiptPage: React.FC<ReceiptProps> = ({ receipt }) => {
-    const { sender, client, information, products, translate } = receipt;
+    const { sender, customer, information, products, translate } = receipt;
     const ReceiptSubtotal = subtotal(receipt);
     const ReceiptTaxes = TAX_RATE * ReceiptSubtotal;
     const ReceiptTotal = ReceiptTaxes + ReceiptSubtotal;
@@ -41,14 +41,14 @@ const ReceiptPage: React.FC<ReceiptProps> = ({ receipt }) => {
                 <Typography variant='body2'>{sender.country}</Typography>
             </div>
             <Divider sx={{ borderBottomWidth: 5 }} />
-            <div className="client-info">
+            <div className="customer-info">
                 <div>
                     <Typography variant='subtitle2'>Sold To</Typography>
-                    <Typography variant='subtitle2'>{client.name} | {client.company}</Typography>
-                    <Typography variant='body2'>{client.address}</Typography>
-                    <Typography variant='body2'>{client.zip}</Typography>
-                    <Typography variant='body2'>{client.city}</Typography>
-                    <Typography variant='body2'>{client.country}</Typography>
+                    <Typography variant='subtitle2'>{customer.name} | {customer.company}</Typography>
+                    <Typography variant='body2'>{customer.address}</Typography>
+                    <Typography variant='body2'>{customer.zip}</Typography>
+                    <Typography variant='body2'>{customer.city}</Typography>
+                    <Typography variant='body2'>{customer.country}</Typography>
                 </div>
                 <div className="Receipt-info">
                     <Typography variant='caption'>Receipt# <strong>{information.number}</strong></Typography>

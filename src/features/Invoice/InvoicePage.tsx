@@ -19,7 +19,7 @@ const currency = 'Rs';
 const TAX_RATE = 0.15;
 
 const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
-    const { sender, client, information, products, translate, bottomNotice } = invoice;
+    const { sender, customer, information, products, translate, bottomNotice } = invoice;
     const invoiceSubtotal = subtotal(invoice);
     const invoiceTaxes = TAX_RATE * invoiceSubtotal;
     const invoiceTotal = invoiceTaxes + invoiceSubtotal;
@@ -41,14 +41,14 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
                 <Typography variant='body2'>{sender.country}</Typography>
             </div>
             <Divider sx={{ borderBottomWidth: 5 }} />
-            <div className="client-info">
+            <div className="customer-info">
                 <div>
                     <Typography variant='subtitle2'>Bill To</Typography>
-                    <Typography variant='subtitle2'>{client.name} | {client.company}</Typography>
-                    <Typography variant='body2'>{client.address}</Typography>
-                    <Typography variant='body2'>{client.zip}</Typography>
-                    <Typography variant='body2'>{client.city}</Typography>
-                    <Typography variant='body2'>{client.country}</Typography>
+                    <Typography variant='subtitle2'>{customer.name} | {customer.company}</Typography>
+                    <Typography variant='body2'>{customer.address}</Typography>
+                    <Typography variant='body2'>{customer.zip}</Typography>
+                    <Typography variant='body2'>{customer.city}</Typography>
+                    <Typography variant='body2'>{customer.country}</Typography>
                 </div>
                 <div className="invoice-info">
                     <Typography variant='caption'>Invoice# <strong>{information.number}</strong></Typography>

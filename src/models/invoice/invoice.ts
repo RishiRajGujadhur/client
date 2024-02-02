@@ -39,7 +39,7 @@ export interface Invoice {
     customize?: {
         template?: string;
     };
-    client: {
+    customer: {
         name: string;
         company: string;
         address: string;
