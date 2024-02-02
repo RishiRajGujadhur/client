@@ -3,12 +3,12 @@ import { Invoice } from "../../models/invoice/invoice";
 export function createInvoice(data: Invoice) {
     // Generate the invoice data
     const invoiceData = {
-        client: {
-            name: data.client.company,
-            address: data.client.address,
-            city: data.client.city,
-            country: data.client.country,
-            postalCode: data.client.zip,
+        customer: {
+            name: data.customer.company,
+            address: data.customer.address,
+            city: data.customer.city,
+            country: data.customer.country,
+            postalCode: data.customer.zip,
         },
         information: {
             number: data.information.number,

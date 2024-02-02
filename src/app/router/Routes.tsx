@@ -11,12 +11,21 @@ import Register from '../../features/account/Register';
 import RequireAuth from './RequireAuth'; 
 import Inventory from '../../features/admin/Inventory';
 import CustomerCreationPage from '../../features/account/profile/CustomerCreationPage';
- 
+import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
+import Orders from '../../features/orders/Orders';
+
 export const router = createBrowserRouter(([
     {
         path: '/',
         element: <App />,
         children: [ 
+            {
+                // authenticated routes
+                element: <RequireAuth />, children: [
+                    { path: '/checkout', element: <CheckoutWrapper /> },
+                    { path: '/orders', element: <Orders /> },
+                ]
+            },
             {
                 // admin routes
                 element: <RequireAuth roles={['Admin']} />, children: [

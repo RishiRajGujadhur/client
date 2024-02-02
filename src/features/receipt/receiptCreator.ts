@@ -4,12 +4,12 @@ import { Receipt } from "../../models/receipt/receipt";
 export function createReceipt(data: Receipt) {
     // Generate the Receipt data
     const ReceiptData = {
-        client: {
-            name: data.client.company,
-            address: data.client.address,
-            city: data.client.city,
-            country: data.client.country,
-            postalCode: data.client.zip,
+        customer: {
+            name: data.customer.company,
+            address: data.customer.address,
+            city: data.customer.city,
+            country: data.customer.country,
+            postalCode: data.customer.zip,
         },
         information: {
             number: data.information.number,
