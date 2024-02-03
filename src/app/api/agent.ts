@@ -134,12 +134,12 @@ const Receipts = {
 }
 
 const Invoices = {
-    list: () => requests.get('Invoices'),
-    details: (id: number) => requests.get(`Invoices/${id}`),
-    create: (receiptData: Invoice) => requests.post('Invoices', receiptData),
-    update: (id: number, receiptData: Invoice) => requests.put(`Invoices/${id}`, receiptData),
-    delete: (id: number) => requests.del(`Invoices/${id}`),
-    getMyInvoiceList: (pageSize: number, pageNumber: number) => requests.get(`Invoices/getMyInvoiceList?pageSize=${pageSize}&pageNumber=${pageNumber}`)
+    list: () => requests.get('Invoice'),
+    details: (id: number) => requests.get(`Invoice/${id}`),
+    create: (invoiceData: Invoice) => requests.post('Invoice', invoiceData),
+    update: (id: number, invoiceData: Invoice) => requests.put(`Invoice/${id}`, invoiceData),
+    delete: (id: number) => requests.del(`Invoice/${id}`),
+    getMyInvoiceList: (pageSize: number, pageNumber: number) => requests.get(`Invoice/getMyInvoiceList?pageSize=${pageSize}&pageNumber=${pageNumber}`)
 }  
  
 

@@ -95,7 +95,7 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
           </ListItemButton>
         </ListItem>
         <ListItem key="Invoices" disablePadding>
-          <ListItemButton>
+        <ListItemButton component={NavLink} to="/my-invoices">
             <ListItemIcon>
               <Receipt />
             </ListItemIcon>

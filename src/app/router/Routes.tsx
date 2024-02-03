@@ -13,6 +13,7 @@ import Inventory from '../../features/admin/Inventory';
 import CustomerCreationPage from '../../features/account/profile/CustomerCreationPage';
 import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
 import Orders from '../../features/orders/Orders';
+import InvoiceList from '../../features/Invoice/InvoiceList';
 
 export const router = createBrowserRouter(([
     {
@@ -24,6 +25,7 @@ export const router = createBrowserRouter(([
                 element: <RequireAuth />, children: [
                     { path: '/checkout', element: <CheckoutWrapper /> },
                     { path: '/orders', element: <Orders /> },
+                    { path: '/my-invoices', element: <InvoiceList /> }
                 ]
             },
             {
