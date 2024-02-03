@@ -129,7 +129,8 @@ const Receipts = {
     details: (id: number) => requests.get(`receipts/${id}`),
     create: (receiptData: Receipt) => requests.post('receipts', receiptData),
     update: (id: number, receiptData: Receipt) => requests.put(`receipts/${id}`, receiptData),
-    delete: (id: number) => requests.del(`receipts/${id}`)
+    delete: (id: number) => requests.del(`receipts/${id}`),
+    getMyReceiptList: (pageSize: number, pageNumber: number) => requests.get(`Invoices/getMyReceiptList?pageSize=${pageSize}&pageNumber=${pageNumber}`)
 }
 
 const Invoices = {
@@ -137,8 +138,10 @@ const Invoices = {
     details: (id: number) => requests.get(`Invoices/${id}`),
     create: (receiptData: Invoice) => requests.post('Invoices', receiptData),
     update: (id: number, receiptData: Invoice) => requests.put(`Invoices/${id}`, receiptData),
-    delete: (id: number) => requests.del(`Invoices/${id}`)
-}
+    delete: (id: number) => requests.del(`Invoices/${id}`),
+    getMyInvoiceList: (pageSize: number, pageNumber: number) => requests.get(`Invoices/getMyInvoiceList?pageSize=${pageSize}&pageNumber=${pageNumber}`)
+}  
+ 
 
 const Payments = {
     createPaymentIntent: () => requests.post('payments', {})
