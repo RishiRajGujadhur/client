@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowSelectionModel, GridRowsProp, GridToolbar } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import { Card, Grid, Typography } from '@mui/material';
-import { InvoiceListData } from '../../models/invoice/invoiceListData';
 import agent from '../../app/api/agent';
 import moment from 'moment';
 
@@ -14,14 +13,50 @@ function InvoiceList() {
         { field: 'logo', headerName: 'Sender', width: 200, renderCell: (params) => <img src={params.value} alt="Logo" style={{ width: '50px', height: '50px' }} /> },
         { field: 'view', headerName: 'Action', width: 100, renderCell: (params) => <Link to={`/invoice/${params.row.number}`}>View</Link> },
     ];
-    const pageSize = 10, pageNumber = 1;
-    const [invoiceListData, setInvoiceListData] = useState<InvoiceListData[]>([]);
+    const pageSize = 2, pageNumber = 1;
+    const [paginationModel, setPaginationModel] = useState({
+        pageSize: pageSize,
+        page: pageNumber,
+    });
+    const [page, setPage] = useState(1);
+    const paginationHandler = (model: any) => {
+        console.log(model);
+        paginationModel.page = model.page;
+        setPage(model.page + 1);
+    };
+    const countPerPage = 10;
 
-    useEffect(() => {
-        agent.Invoices.getMyInvoiceList(pageSize, pageNumber).then(response => {
-            setInvoiceListData(response);
-        });
-    }, []);
+    function loadServerRows(pageNumber: number): Promise<any> {
+        return agent.Invoices.getMyInvoiceList(pageSize, pageNumber) as Promise<any>;
+    }
+
+    const [rows, setRows] = useState<GridRowsProp>([]);
+    const [totalCount, setTotalCount] = useState<number>(0);
+    const [loading, setLoading] = useState(false);
+    const [rowSelectionModel, setRowSelectionModel] =
+        useState<GridRowSelectionModel>([]); 
+        useEffect(() => {
+        let active = true;
+        (async () => {
+            setLoading(true);
+            const newRows = await loadServerRows(paginationModel.page);
+
+            if (!active) {
+                return;
+            }
+            setRows(newRows);
+            // Inside the useEffect hook
+            setRows(newRows.items);
+            setTotalCount(newRows.metaData.totalCount);
+            //setTotalCount(newRows);
+            setLoading(false);
+        })();
+
+        return () => {
+            active = false;
+        };
+    }, [paginationModel.page]);
+
 
     return (
         <Grid>
@@ -29,11 +64,23 @@ function InvoiceList() {
             <Card>
                 <div style={{ height: 400, width: '100%' }}>
                     <DataGrid
-                        rows={invoiceListData}
+                        rows={rows}
+                        rowCount={100}
                         columns={columns}
-                        slots={{ toolbar: GridToolbar }}
+                        
+                        slots={{ toolbar: GridToolbar }} 
                         pagination
-                    // paginationModel={'server'}
+                        loading={loading}
+                        initialState={{
+                            pagination: { paginationModel },
+                        }}
+                        paginationMode="server"
+                        pageSizeOptions={[2]}
+                        onPaginationModelChange={paginationHandler}
+                        onRowSelectionModelChange={(newRowSelectionModel) => {
+                            setRowSelectionModel(newRowSelectionModel);
+                        }}
+                        rowSelectionModel={rowSelectionModel}
                     />
                 </div>
             </Card>

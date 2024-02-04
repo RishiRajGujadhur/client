@@ -3,8 +3,12 @@ export interface InvoiceListData {
     issueDate: string;
     paymentDueDate: string; 
     logo: string;
-    number: string; 
+    number: string;  
+    totalPages: number;
+    pageSize: number;
+    totalCount: number;
+    currentPage: number;
 }
 
-
+ 
  
