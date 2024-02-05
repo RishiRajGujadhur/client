@@ -1,7 +1,7 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import AppName from "./AppName";
-import { Person, Favorite, ShoppingBasket, Loop, Collections, ThumbUp, SettingsApplications, Receipt, Reviews, CommentBank, AddAlarm, Assistant, SupportAgent, ManageHistory, SavedSearch, Chat, Visibility, Summarize, EmojiEvents, Redeem, Loyalty } from '@mui/icons-material'; // Import the icons you want to use
+import { Person, Favorite, ShoppingBasket, Loop, Collections, ThumbUp, SettingsApplications, Receipt, Reviews, CommentBank, Assistant, SupportAgent, ManageHistory, SavedSearch, Chat, Visibility, Summarize, Redeem, Loyalty } from '@mui/icons-material'; // Import the icons you want to use
 
 const drawerWidth = '240px';
 
