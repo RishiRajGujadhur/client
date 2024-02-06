@@ -56,9 +56,9 @@ const InvoiceList: React.FC = () => {
                             <TableRow key={invoice.id}>
                                 <TableCell>{moment(invoice.issueDate).format('MMM-DD-YYYY')}</TableCell>
                                 <TableCell>{moment(invoice.paymentDueDate).format('MMM-DD-YYYY')}</TableCell>
-                                <TableCell>
-                                    <Link href={`/invoices/${invoice.id}`} underline="hover" color="inherit">
-                                        {invoice.number}
+                                <TableCell> 
+                                    <Link href={`/invoice/${invoice.id}`} underline="hover" color="inherit">
+                                        {invoice.number}{invoice.id}
                                     </Link>
                                 </TableCell>
                                 <TableCell>
@@ -66,7 +66,7 @@ const InvoiceList: React.FC = () => {
                                 </TableCell>
                                 <TableCell>
                                     <Button
-                                        href={`/invoices/${invoice.id}`}
+                                        href={`/invoice/${invoice.id}`}
                                         size="small"
                                         style={{ textDecoration: 'none' }}
                                     >

@@ -1,11 +1,9 @@
-import React from 'react';
 import { Invoice } from '../../models/invoice/invoice';
 import './InvoicePage.css';
 import { Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper, Divider, TableContainer } from '@mui/material';
-
-interface InvoiceProps {
-    invoice: Invoice;
-}
+import moment from 'moment';
+ 
+ 
 function ccyFormat(num: number) {
     return `${num.toFixed(2)}`;
 }
@@ -18,8 +16,12 @@ function subtotal(items: Invoice) {
 const currency = 'Rs';
 const TAX_RATE = 0.15;
 
-const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
-    const { sender, customer, information, products, translate, bottomNotice } = invoice;
+interface InvoiceDetailsProps {
+    invoice: Invoice; 
+  }
+
+const InvoiceDetails: React.FC<InvoiceDetailsProps> = ({ invoice }) => { 
+    const { sender, customer, products, bottomNotice } = invoice;
     const invoiceSubtotal = subtotal(invoice);
     const invoiceTaxes = TAX_RATE * invoiceSubtotal;
     const invoiceTotal = invoiceTaxes + invoiceSubtotal;
@@ -27,7 +29,7 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
         <Paper elevation={12} className="invoice-page">
             <div className="header">
                 <div>
-                    <img src={invoice.images.logo} alt="Logo" className="logo" />
+                    <img src={invoice.logo} alt="Logo" className="logo" />
                 </div>
                 <div>
                     <Typography variant="h5">INVOICE</Typography>
@@ -51,9 +53,10 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
                     <Typography variant='body2'>{customer.country}</Typography>
                 </div>
                 <div className="invoice-info">
-                    <Typography variant='caption'>Invoice# <strong>{information.number}</strong></Typography>
-                    <Typography variant='body2'><strong>Invoice Date:</strong> {information.date}</Typography>
-                    <Typography variant='body2'><strong>Due Date:</strong> {information.dueDate}</Typography>
+                    <Typography variant='caption'>Invoice# <strong>{invoice.number}</strong></Typography>
+                   
+                    <Typography variant='body2'><strong>Invoice Date:</strong> {moment(invoice.issueDate).format('MMMM DD, YYYY')}</Typography>
+                    <Typography variant='body2'><strong>Due Date:</strong> {moment(invoice.dueDate).format('MMMM DD, YYYY')}</Typography>
                 </div>
             </div>
 
@@ -104,10 +107,10 @@ const InvoicePage: React.FC<InvoiceProps> = ({ invoice }) => {
 
             <div className="bottom-notice">
                 <Typography variant="subtitle2">Terms and Conditions</Typography>
-                <Typography variant="body2">Thanks for your business. {bottomNotice}</Typography>
+                <Typography variant="body2">{bottomNotice}</Typography>
             </div>
         </Paper>
     );
 };
 
-export default InvoicePage;
+export default InvoiceDetails; 

@@ -1,8 +1,14 @@
 export interface Invoice { 
-    information: {
-        number: string;
-        date: string;
-        dueDate: string;
+    number: string;
+    issueDate: string;
+    dueDate: string; 
+    logo: string;
+    sender: {
+        company: string;
+        address: string;
+        zip: string;
+        city: string;
+        country: string;
     };
     products: {
         quantity: string;
@@ -46,15 +52,5 @@ export interface Invoice {
         zip: string;
         city: string;
         country: string;
-    };
-    sender: {
-        company: string;
-        address: string;
-        zip: string;
-        city: string;
-        country: string;
-    };
-    images: {
-        logo: string;
     };
 }

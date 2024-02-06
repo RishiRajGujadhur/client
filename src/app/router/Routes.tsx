@@ -14,6 +14,8 @@ import CustomerCreationPage from '../../features/account/profile/CustomerCreatio
 import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
 import Orders from '../../features/orders/Orders';
 import InvoiceList from '../../features/Invoice/InvoiceList';
+import InvoicePage from '../../features/Invoice/InvoiceDetails';
+import InvoiceDetailsPage from '../../features/Invoice/InvoiceDetailsPage';
 
 export const router = createBrowserRouter(([
     {
@@ -25,7 +27,8 @@ export const router = createBrowserRouter(([
                 element: <RequireAuth />, children: [
                     { path: '/checkout', element: <CheckoutWrapper /> },
                     { path: '/orders', element: <Orders /> },
-                    { path: '/my-invoices', element: <InvoiceList /> }
+                    { path: '/my-invoices', element: <InvoiceList /> },
+                    { path: '/invoice/:id', element: <InvoiceDetailsPage /> }
                 ]
             },
             {
