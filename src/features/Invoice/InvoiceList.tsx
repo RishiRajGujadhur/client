@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import agent from '../../app/api/agent';
 import { InvoiceListData } from '../../models/invoice/invoiceListData';
-import { Table, TableHead, TableRow, TableCell, TableBody, Button, CardContent, Card, Typography, Grid, CardActions, Link, CircularProgress } from '@mui/material';
+import { Table, TableHead, TableRow, TableCell, TableBody, Button, CardContent, Card, Typography, Grid, CardActions, Link, CircularProgress, Skeleton } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const InvoiceList: React.FC = () => {
     const [invoices, setInvoices] = useState<InvoiceListData[]>([]);
@@ -39,7 +40,7 @@ const InvoiceList: React.FC = () => {
         <Grid>
             <Typography variant='h4' style={{ marginBottom: '1rem' }}>My invoices</Typography>
             <Card>
-                <Table>
+                <Table> {/* Add CSS style for default height */}
                     {/* Render table headers */}
                     <TableHead>
                         <TableRow>
@@ -52,29 +53,52 @@ const InvoiceList: React.FC = () => {
                     </TableHead>
                     {/* Render table rows */}
                     <TableBody>
-                        {invoices.map((invoice) => (
-                            <TableRow key={invoice.id}>
-                                <TableCell>{moment(invoice.issueDate).format('MMM-DD-YYYY')}</TableCell>
-                                <TableCell>{moment(invoice.paymentDueDate).format('MMM-DD-YYYY')}</TableCell>
-                                <TableCell> 
-                                    <Link href={`/invoice/${invoice.id}`} underline="hover" color="inherit">
-                                        {invoice.number}{invoice.id}
-                                    </Link>
-                                </TableCell>
-                                <TableCell>
-                                    <img src={invoice.logo} alt="Sender's Logo" style={{ width: '50px', height: '50px' }} />
-                                </TableCell>
-                                <TableCell>
-                                    <Button
-                                        href={`/invoice/${invoice.id}`}
-                                        size="small"
-                                        style={{ textDecoration: 'none' }}
-                                    >
-                                        View
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {isLoading ? (
+                            // Show skeleton loaders if isLoading is true
+                            Array.from({ length: pageSize }, (_, index) => (
+                                <TableRow key={index} sx={{ '& > *': { py: 3.5 } }}>
+                                    <TableCell>
+                                        <Skeleton variant="text" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton variant="text" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton variant="text" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton variant="text" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton variant="text" />
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        ) : (
+                            invoices.map((invoice) => (
+                                <TableRow key={invoice.id}>
+                                    <TableCell>{moment(invoice.issueDate).format('MMM-DD-YYYY')}</TableCell>
+                                    <TableCell>{moment(invoice.paymentDueDate).format('MMM-DD-YYYY')}</TableCell>
+                                    <TableCell>
+                                        <Typography variant="body2" component={NavLink} to={`/invoice/${invoice.id}`}>
+                                            {invoice.number}{invoice.id}
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <img src={invoice.logo} alt="Sender's Logo" style={{ width: '50px', height: '50px' }} />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button
+                                            component={NavLink} to={`/invoice/${invoice.id}`} // Use NavLink instead of Link
+                                            size="small"
+                                            style={{ textDecoration: 'none' }}
+                                        >
+                                            View
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        )}
                     </TableBody>
                 </Table>
                 <CardActions>
@@ -93,13 +117,9 @@ const InvoiceList: React.FC = () => {
                     ))}
                 </CardActions>
                 <CardContent>
-                    {isLoading ? (
-                        <CircularProgress /> // Show loading animation if isLoading is true
-                    ) : (
-                        <Typography variant='body2'>
-                            {totalResults} invoices found.
-                        </Typography>
-                    )}
+                    <Typography variant='body2'>
+                        {totalResults} invoices found.
+                    </Typography>
                 </CardContent>
             </Card>
         </Grid>
