@@ -1,7 +1,9 @@
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, Tooltip, IconButton } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
 import { useFormContext } from 'react-hook-form';
 import AppTextInput from '../../app/components/AppTextInput';
 import AppCheckbox from '../../app/components/AppCheckBox';
+
 
 export default function AddressForm() {
     const { control, formState } = useFormContext();
@@ -34,13 +36,19 @@ export default function AddressForm() {
                 </Grid>
             </Grid>
 
+         
             <Grid item xs={12}>
                 <AppCheckbox 
                     disabled={!formState.isDirty}
                     name='saveAddress' 
-                    label='Save this as default address' 
+                    label='Save this as my default address' 
                     control={control} 
                 />
+                <Tooltip title="Default address is the billing address.">
+                    <IconButton size="small">
+                        <InfoIcon />
+                    </IconButton>
+                </Tooltip>
             </Grid>
         </>
     );

@@ -2,7 +2,7 @@ import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody
 import { useEffect } from "react";
 import { useState } from "react";
 import agent from "../../app/api/agent";
-import LoadingComponent from "../../app/layout/LoadingComponent"; 
+import LoadingComponent from "../../app/layout/LoadingComponent";
 import { currencyFormat } from "../../app/util/util";
 import OrderDetailed from './OrderDetailed';
 import { Order } from "../../models/order";
@@ -37,7 +37,7 @@ export default function Orders() {
                         <TableCell>Order Number</TableCell>
                         <TableCell align="right">Total</TableCell>
                         <TableCell align="right">Order Date</TableCell>
-                        <TableCell align="right">Order Status</TableCell>
+                        <TableCell align="right">Order Status</TableCell> 
                         <TableCell align="right"></TableCell>
                     </TableRow>
                 </TableHead>
@@ -52,7 +52,7 @@ export default function Orders() {
                             </TableCell>
                             <TableCell align="right">{currencyFormat(order.total)}</TableCell>
                             <TableCell align="right">{order.orderDate.split('T')[0]}</TableCell>
-                            <TableCell align="right">{order.orderStatus}</TableCell>
+                            <TableCell align="right">{order.orderStatus}</TableCell> 
                             <TableCell align="right">
                                 <Button onClick={() => setSelectedOrderNumber(order.id)}>
                                     View
