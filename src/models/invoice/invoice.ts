@@ -46,7 +46,7 @@ export interface Invoice {
         template?: string;
     };
     customer: {
-        company: string;
+        name: string; 
         address: string;
         zip: string;
         city: string;
