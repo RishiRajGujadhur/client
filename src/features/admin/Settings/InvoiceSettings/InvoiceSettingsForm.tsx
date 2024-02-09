@@ -34,8 +34,7 @@ const InvoiceSettingsForm: React.FC = () => {
         const fetchInitialInvoiceSettings = async () => {
             try {
                 const response = await agent.InvoicesSettings.details();
-                setInvoiceSettings(response.data);
-                console.log(invoiceSettings);
+                setInvoiceSettings(response); 
             } catch (error) {
                 console.error('Error fetching initial liked status:', error);
             }
@@ -51,14 +50,17 @@ const InvoiceSettingsForm: React.FC = () => {
             [name]: value,
         }));
     };
-
-    const handleSubmit = async () => {
+ 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
+            e.preventDefault();
+            console.log(invoiceSettings);
             await agent.InvoicesSettings.update(invoiceSettings);
         } catch (error) {
             console.error('Error toggling like status:', error);
         }
-    };
+      };
+    
 
     return (
         <Card>
