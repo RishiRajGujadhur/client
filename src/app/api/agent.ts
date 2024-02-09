@@ -6,6 +6,7 @@ import { store } from "../store/configureStore";
 import { CustomerFormData } from "../../models/customer_form_data";
 import { Receipt } from "../../models/receipt/receipt";
 import { Invoice } from "../../models/invoice/invoice";
+import { InvoiceSettings } from "../../models/invoice/InvoiceSettings/InvoiceSettings";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
@@ -142,6 +143,12 @@ const Invoices = {
     getMyInvoiceList: (pageSize: number, pageNumber: number) => requests.get(`Invoice/getMyInvoiceList?pageSize=${pageSize}&pageNumber=${pageNumber}`)
 }  
  
+const InvoicesSettings = {
+    details: () => requests.get('Invoice/getFirstInvoiceSettings'), 
+    create: (invoiceData: InvoiceSettings) => requests.post('Invoice/saveInvoiceSettings', invoiceData),
+    update: (invoiceData: InvoiceSettings) => requests.put(`updateInvoiceSettings`, invoiceData),  
+}
+
 
 const Payments = {
     createPaymentIntent: () => requests.post('payments', {})
@@ -165,6 +172,7 @@ const agent = {
     Invoices,
     Payments,
     Orders,
+    InvoicesSettings,
 }
 
 export default agent;

@@ -13,8 +13,7 @@ import Inventory from '../../features/admin/Inventory';
 import CustomerCreationPage from '../../features/account/profile/CustomerCreationPage';
 import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
 import Orders from '../../features/orders/Orders';
-import InvoiceList from '../../features/Invoice/InvoiceList';
-import InvoicePage from '../../features/Invoice/InvoiceDetails';
+import InvoiceList from '../../features/Invoice/InvoiceList'; 
 import InvoiceDetailsPage from '../../features/Invoice/InvoiceDetailsPage';
 
 export const router = createBrowserRouter(([
