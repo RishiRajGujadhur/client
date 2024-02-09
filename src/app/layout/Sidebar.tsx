@@ -2,7 +2,7 @@ import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Too
 import { NavLink } from "react-router-dom";
 import AppName from "./AppName";
 import { Person, Favorite, ShoppingBasket, Loop, Collections, ThumbUp, SettingsApplications, Receipt, Reviews, CommentBank, Assistant, SupportAgent, ManageHistory, SavedSearch, Chat, Visibility, Summarize, Redeem, Loyalty } from '@mui/icons-material'; // Import the icons you want to use
-import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { useAppSelector } from "../store/configureStore";
 const drawerWidth = '240px';
 
 interface Props {
@@ -11,7 +11,6 @@ interface Props {
 }
 
 export default function Sidebar({ handleThemeChange, darkMode }: Props) {
-
   const { user } = useAppSelector(state => state.account);
 
   return (
