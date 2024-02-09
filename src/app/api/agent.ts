@@ -146,7 +146,7 @@ const Invoices = {
 const InvoicesSettings = {
     details: () => requests.get('Invoice/getFirstInvoiceSettings'), 
     create: (invoiceData: InvoiceSettings) => requests.post('Invoice/saveInvoiceSettings', invoiceData),
-    update: (invoiceData: InvoiceSettings) => requests.put(`updateInvoiceSettings`, invoiceData),  
+    update: (invoiceData: any) => requests.put(`Invoice/updateInvoiceSettings`, invoiceData),  
 }
 
 

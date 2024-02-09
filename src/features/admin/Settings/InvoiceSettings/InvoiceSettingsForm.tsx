@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Button, Grid, Card, CardContent, CardHeader } from '@mui/material';
 import { InvoiceSettings } from '../../../../models/invoice/InvoiceSettings/InvoiceSettings';
 import agent from '../../../../app/api/agent';
-
+import { toast } from 'react-toastify';
 const InvoiceSettingsForm: React.FC = () => {
     const [invoiceSettings, setInvoiceSettings] = useState<InvoiceSettings>({
         companyName: 'Sample Company',
@@ -36,7 +36,8 @@ const InvoiceSettingsForm: React.FC = () => {
                 const response = await agent.InvoicesSettings.details();
                 setInvoiceSettings(response); 
             } catch (error) {
-                console.error('Error fetching initial liked status:', error);
+                console.error('An error occured while fetching the invoice settings!', error);
+                toast.error('An error occured while fetching the invoice settings!');
             }
         };
 
@@ -53,11 +54,13 @@ const InvoiceSettingsForm: React.FC = () => {
  
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
-            e.preventDefault();
-            console.log(invoiceSettings);
+            e.preventDefault(); 
             await agent.InvoicesSettings.update(invoiceSettings);
+            toast.success('Invoice settings updated successfully!');
+
         } catch (error) {
             console.error('Error toggling like status:', error);
+            toast.error('An error occured while updating the invoice settings!');
         }
       };
     
