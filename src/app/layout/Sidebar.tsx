@@ -29,7 +29,7 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
       <Toolbar>
         <AppName darkMode={darkMode} handleThemeChange={handleThemeChange} />
       </Toolbar> 
-      {user && user.roles?.includes('Member') &&
+      {user && !user.roles?.includes('Admin') &&
         <List> 
           <ListItem key="Summary" disablePadding>
             <ListItemButton>
@@ -195,7 +195,19 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
               <ListItemText primary="Summary" />
             </ListItemButton>
           </ListItem>
-        </List>}
+
+          
+          <ListItem key="Invoice Settings" disablePadding>
+            <ListItemButton component={NavLink} to="/invoiceSettings">
+              <ListItemIcon>
+                <SettingsApplications />
+              </ListItemIcon>
+              <ListItemText primary="Invoice Settings" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        
+        }
     </Drawer>
   );
 }

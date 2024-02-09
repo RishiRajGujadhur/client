@@ -15,6 +15,7 @@ import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
 import Orders from '../../features/orders/Orders';
 import InvoiceList from '../../features/Invoice/InvoiceList'; 
 import InvoiceDetailsPage from '../../features/Invoice/InvoiceDetailsPage';
+import InvoiceSettingsForm from '../../features/admin/Settings/InvoiceSettings/InvoiceSettingsForm';
 
 export const router = createBrowserRouter(([
     {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter(([
                 // admin routes
                 element: <RequireAuth roles={['Admin']} />, children: [
                     { path: '/inventory', element: <Inventory /> },
+                    { path: '/invoiceSettings/', element: <InvoiceSettingsForm /> }
                 ]
             },
             { path: 'catalog', element: <Catalog /> },
