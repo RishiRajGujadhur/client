@@ -13,8 +13,7 @@ export default function ContactPage() {
              Contact Page  
              {/* <ReceiptPage receipt={receiptData}></ReceiptPage> */}
                 <RegressionLineChart></RegressionLineChart>
-                <br/>
-           
+                <br/> 
                 <RevenueChart></RevenueChart>
              
         </>

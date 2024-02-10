@@ -200,7 +200,7 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
           <ListItem key="Invoice Settings" disablePadding>
             <ListItemButton component={NavLink} to="/invoiceSettings">
               <ListItemIcon>
-                <SettingsApplications />
+              <SettingsApplications />
               </ListItemIcon>
               <ListItemText primary="Invoice Settings" />
             </ListItemButton>
