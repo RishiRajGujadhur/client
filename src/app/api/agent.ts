@@ -149,15 +149,16 @@ const InvoicesSettings = {
     update: (invoiceData: any) => requests.put(`Invoice/updateInvoiceSettings`, invoiceData),  
 }
 
-
 const Payments = {
     createPaymentIntent: () => requests.post('payments', {})
 }
 
 const Orders = {
     list: () => requests.get('orders'),
+    listAllOrders: () => requests.get('listAllOrders'), 
     fetch: (id: number) => requests.get(`orders/${id}`),
-    create: (values: any) => requests.post('orders', values)
+    create: (values: any) => requests.post('orders', values),
+    update: (id: number, values: any) => requests.put(`setOrderAsFufilled/${id}`, values),
 }
 
 const agent = {
