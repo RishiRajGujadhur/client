@@ -36,7 +36,7 @@ export default function ManageOrdersByUser() {
 
     useEffect(() => {
         setLoading(true);
-        agent.Orders.listOrdersByUser({id: parseInt(id!)})
+        agent.Orders.listOrdersByUser({ username: id! })
             .then(orders => setOrders(orders))
             .catch(error => console.log(error))
             .finally(() => setLoading(false))

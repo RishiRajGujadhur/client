@@ -1,3 +1,3 @@
 export interface UserParams {
-    id: number; 
+    username: string;
 }

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 interface User {
     id: number;
+    userName: string;
     fullName: string;
     email: string;
 }
@@ -15,6 +16,7 @@ const UserTable = () => {
     useEffect(() => {
         agent.Account.fetchAllUsers()
             .then(data => setUsers(data));
+            console.log(users);
     }, []);
 
     return (
@@ -22,19 +24,19 @@ const UserTable = () => {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Name</TableCell>
+                        <TableCell>Username</TableCell>
                         <TableCell>Email</TableCell>
-                        <TableCell></TableCell>
+                        <TableCell>Orders</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {users.map(user => (
                         <TableRow key={user.id}>
-                            <TableCell>{user.fullName}</TableCell>
+                            <TableCell>{user.userName}</TableCell>
                             <TableCell>{user.email}</TableCell>
                             <TableCell>
                                 <Button
-                                    component={NavLink} to={`/ManageOrdersByUser/${user.id}`}
+                                    component={NavLink} to={`/ManageOrdersByUser/${user.userName}`}
                                     size="small"
                                     style={{ textDecoration: 'none' }}
                                 >
