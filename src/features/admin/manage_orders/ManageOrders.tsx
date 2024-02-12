@@ -4,10 +4,12 @@ import agent from "../../../app/api/agent";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { currencyFormat } from "../../../app/util/util";
 import { Order } from "../../../models/order";
+import OrderDetailed from "../../orders/OrderDetailed";
 
 export default function ManageOrders() {
     const [orders, setOrders] = useState<Order[] | null>(null);
     const [loading, setLoading] = useState(true);
+    const [selectedOrderNumber, setSelectedOrderNumber] = useState(0);
 
     const setOrderStatus = (orderId: number, orderStatus: string) => {
         agent.Orders.update({
@@ -40,7 +42,12 @@ export default function ManageOrders() {
     }, []);
 
     if (loading) return <LoadingComponent message="Loading orders..." />
-
+    if (selectedOrderNumber > 0 && orders) return (
+        <OrderDetailed
+            order={orders.find(o => o.id === selectedOrderNumber)!}
+            setSelectedOrder={setSelectedOrderNumber}
+        />
+    )
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -48,7 +55,7 @@ export default function ManageOrders() {
                     <TableRow>
                         <TableCell>Order Number</TableCell>
                         <TableCell align="right">Total</TableCell>
-                        <TableCell align="right">Order Date</TableCell>
+                        <TableCell align="right">Order Date</TableCell> 
                         <TableCell align="right">Order Status</TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>
@@ -64,10 +71,10 @@ export default function ManageOrders() {
                             </TableCell>
                             <TableCell align="right">{currencyFormat(order.total)}</TableCell>
                             <TableCell align="right">{order.orderDate.split('T')[0]}</TableCell>
-                            <TableCell align="right">{order.orderStatus}</TableCell>
+                           
                             <TableCell align="right">
-                                <FormControl>
-                                    <InputLabel>Order Status</InputLabel>
+                                <FormControl sx={{ width: 200 }}>
+                                    <InputLabel></InputLabel>
                                     <Select
                                         value={order.orderStatus}
                                         onChange={(e) => setOrderStatus(order.id, e.target.value as string)}
@@ -78,6 +85,11 @@ export default function ManageOrders() {
                                         <MenuItem value="PaymentReceived">Payment Received</MenuItem>
                                     </Select>
                                 </FormControl>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Button onClick={() => setSelectedOrderNumber(order.id)}>
+                                    View
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}
