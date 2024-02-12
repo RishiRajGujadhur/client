@@ -1,24 +1,26 @@
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
-import { useEffect } from "react";
-import { useState } from "react";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useEffect, useState } from "react";
 import agent from "../../../app/api/agent";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { currencyFormat } from "../../../app/util/util";
 import { Order } from "../../../models/order";
- 
+
 export default function ManageOrders() {
     const [orders, setOrders] = useState<Order[] | null>(null);
     const [loading, setLoading] = useState(true);
- 
-    function setAsFulfilled(orderId: number) {
-        agent.Orders.update(orderId, "Fulfilled")
-            .then(() => {
+
+    const setOrderStatus = (orderId: number, orderStatus: string) => {
+        agent.Orders.update({
+            orderStatus: orderStatus,
+            id: orderId
+        })
+            .then(() => { 
                 // Update the order status in the local state
                 setOrders(prevOrders => {
                     if (prevOrders) {
                         return prevOrders.map(order => {
                             if (order.id === orderId) {
-                                return { ...order, orderStatus: "Fulfilled" };
+                                return { ...order, orderStatus: orderStatus };
                             }
                             return order;
                         });
@@ -28,7 +30,7 @@ export default function ManageOrders() {
             })
             .catch(error => console.log(error));
     }
- 
+
     useEffect(() => {
         setLoading(true);
         agent.Orders.listAllOrders()
@@ -37,9 +39,7 @@ export default function ManageOrders() {
             .finally(() => setLoading(false))
     }, []);
 
-
-    if (loading) return <LoadingComponent message="Loading orders..." /> 
-  
+    if (loading) return <LoadingComponent message="Loading orders..." />
 
     return (
         <TableContainer component={Paper}>
@@ -66,9 +66,18 @@ export default function ManageOrders() {
                             <TableCell align="right">{order.orderDate.split('T')[0]}</TableCell>
                             <TableCell align="right">{order.orderStatus}</TableCell>
                             <TableCell align="right">
-                                <Button onClick={() => setAsFulfilled(order.id)}>
-                                    Set as Fulfilled
-                                </Button>
+                                <FormControl>
+                                    <InputLabel>Order Status</InputLabel>
+                                    <Select
+                                        value={order.orderStatus}
+                                        onChange={(e) => setOrderStatus(order.id, e.target.value as string)}
+                                    >
+                                        <MenuItem value="Delivered">Delivered</MenuItem>
+                                        <MenuItem value="Pending">Pending</MenuItem>
+                                        <MenuItem value="PaymentFailed">Payment Failed</MenuItem>
+                                        <MenuItem value="PaymentReceived">Payment Received</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </TableCell>
                         </TableRow>
                     ))}

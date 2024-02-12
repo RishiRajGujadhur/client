@@ -7,6 +7,7 @@ import { CustomerFormData } from "../../models/customer_form_data";
 import { Receipt } from "../../models/receipt/receipt";
 import { Invoice } from "../../models/invoice/invoice";
 import { InvoiceSettings } from "../../models/invoice/InvoiceSettings/InvoiceSettings";
+import { OrderStatus } from "../../models/orderStatus";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
@@ -155,10 +156,10 @@ const Payments = {
 
 const Orders = {
     list: () => requests.get('orders'),
-    listAllOrders: () => requests.get('listAllOrders'), 
+    listAllOrders: () => requests.get('orders/listAllOrders'), 
     fetch: (id: number) => requests.get(`orders/${id}`),
     create: (values: any) => requests.post('orders', values),
-    update: (id: number, values: any) => requests.put(`setOrderAsFufilled/${id}`, values),
+    update: (values: OrderStatus) => requests.put(`orders`, values),
 }
 
 const agent = {
