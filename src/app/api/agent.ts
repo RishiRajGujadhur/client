@@ -8,6 +8,7 @@ import { Receipt } from "../../models/receipt/receipt";
 import { Invoice } from "../../models/invoice/invoice";
 import { InvoiceSettings } from "../../models/invoice/InvoiceSettings/InvoiceSettings";
 import { OrderStatus } from "../../models/orderStatus";
+import { UserParams } from "../../models/UserParams";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
@@ -162,7 +163,7 @@ const Orders = {
     fetch: (id: number) => requests.get(`orders/${id}`),
     create: (values: any) => requests.post('orders', values),
     update: (values: OrderStatus) => requests.put(`orders`, values), 
-    listOrdersByUser: (id: number) => requests.get(`orders/listOrdersByUser/${id}`),
+    listOrdersByUser: (user: UserParams) => requests.post(`orders/GetOrdersByUser`,user),
 }
 
 const agent = {

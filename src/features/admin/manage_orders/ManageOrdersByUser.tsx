@@ -12,7 +12,6 @@ export default function ManageOrdersByUser() {
     const [orders, setOrders] = useState<Order[] | null>(null);
     const [loading, setLoading] = useState(true);
     const [selectedOrderNumber, setSelectedOrderNumber] = useState(0);
-
     const setOrderStatus = (orderId: number, orderStatus: string) => {
         agent.Orders.update({
             orderStatus: orderStatus,
@@ -37,9 +36,7 @@ export default function ManageOrdersByUser() {
 
     useEffect(() => {
         setLoading(true);
-        console.log(parseInt(id!));
-        debugger;
-        agent.Orders.listOrdersByUser(1)
+        agent.Orders.listOrdersByUser({id: parseInt(id!)})
             .then(orders => setOrders(orders))
             .catch(error => console.log(error))
             .finally(() => setLoading(false))
