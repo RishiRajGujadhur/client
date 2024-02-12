@@ -17,6 +17,8 @@ import InvoiceList from '../../features/Invoice/InvoiceList';
 import InvoiceDetailsPage from '../../features/Invoice/InvoiceDetailsPage';
 import InvoiceSettingsForm from '../../features/admin/Settings/InvoiceSettings/InvoiceSettingsForm';
 import ManageOrders from '../../features/admin/manage_orders/ManageOrders';
+import ManageUsers from '../../features/admin/manage_users/ManageUsers';
+import ManageOrdersByUser from '../../features/admin/manage_orders/ManageOrdersByUser';
 
 export const router = createBrowserRouter(([
     {
@@ -37,7 +39,9 @@ export const router = createBrowserRouter(([
                 element: <RequireAuth roles={['Admin']} />, children: [
                     { path: '/inventory', element: <Inventory /> },
                     { path: '/manageOrders', element: <ManageOrders /> },
-                    { path: '/invoiceSettings/', element: <InvoiceSettingsForm /> }
+                    { path: '/invoiceSettings/', element: <InvoiceSettingsForm />},
+                    { path: '/manageUsers/', element: <ManageUsers />},
+                    { path: '/manageOrdersByUser/:id', element: <ManageOrdersByUser />}
                 ]
             },
             { path: 'catalog', element: <Catalog /> },

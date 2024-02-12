@@ -205,6 +205,14 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
             </ListItemButton>
           </ListItem>
 
+          <ListItem key="Manage Users" disablePadding>
+            <ListItemButton component={NavLink} to="/manageUsers">
+              <ListItemIcon>
+                <Person />
+              </ListItemIcon>
+              <ListItemText primary="All Users" />
+            </ListItemButton>
+          </ListItem>
 
           <ListItem key="Invoice Settings" disablePadding>
             <ListItemButton component={NavLink} to="/invoiceSettings">

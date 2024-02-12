@@ -89,7 +89,9 @@ const Account = {
     login: (values: any) => requests.post('account/login', values),
     register: (values: any) => requests.post('account/register', values),
     currentUser: () => requests.get('account/currentUser'),
-    fetchAddress: () => requests.get('account/savedAddress')
+    fetchAddress: () => requests.get('account/savedAddress'),
+    fetchAllUsers: () => requests.get('account/getAllUsers'),
+    
 }
 
 const Customers = {
@@ -159,7 +161,8 @@ const Orders = {
     listAllOrders: () => requests.get('orders/listAllOrders'), 
     fetch: (id: number) => requests.get(`orders/${id}`),
     create: (values: any) => requests.post('orders', values),
-    update: (values: OrderStatus) => requests.put(`orders`, values),
+    update: (values: OrderStatus) => requests.put(`orders`, values), 
+    listOrdersByUser: (id: number) => requests.get(`orders/listOrdersByUser/${id}`),
 }
 
 const agent = {
