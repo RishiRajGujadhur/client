@@ -5,13 +5,11 @@ import agent from "../../../app/api/agent";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { currencyFormat } from "../../../app/util/util";
 import { Order } from "../../../models/order";
-import OrderDetailed from "../../orders/OrderDetailed";
-
+ 
 export default function ManageOrders() {
     const [orders, setOrders] = useState<Order[] | null>(null);
     const [loading, setLoading] = useState(true);
-    const [selectedOrderNumber, setSelectedOrderNumber] = useState(0);
-
+ 
     function setAsFulfilled(orderId: number) {
         agent.Orders.update(orderId, "Fulfilled")
             .then(() => {
@@ -40,14 +38,8 @@ export default function ManageOrders() {
     }, []);
 
 
-    if (loading) return <LoadingComponent message="Loading orders..." />
-
-    if (selectedOrderNumber > 0 && orders) return (
-        <OrderDetailed
-            order={orders.find(o => o.id === selectedOrderNumber)!}
-            setSelectedOrder={setSelectedOrderNumber}
-        />
-    )
+    if (loading) return <LoadingComponent message="Loading orders..." /> 
+  
 
     return (
         <TableContainer component={Paper}>
