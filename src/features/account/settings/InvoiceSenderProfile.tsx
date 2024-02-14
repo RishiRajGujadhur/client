@@ -20,8 +20,8 @@ const InvoiceSenderProfile: React.FC = () => {
                 const response = await agent.InvoiceSenders.details();
                 setInvoiceSender(response);
             } catch (error) {
-                console.error('An error occured while fetching the invoice settings!', error);
-                toast.error('An error occured while fetching the invoice settings!');
+                console.error('An error occured while fetching the invoice sender profile!', error);
+                toast.error('An error occured while fetching the invoice sender profile!');
             }
         };
 
