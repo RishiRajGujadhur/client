@@ -1,8 +1,8 @@
 export interface InvoiceSender {
-    Id: number;
-    Address: string;
-    City: string;
-    Company: string;
-    Zip: string;
-    Country: string;
+    id: number;
+    address: string;
+    city: string;
+    company: string;
+    zip: string;
+    country: string;
 }

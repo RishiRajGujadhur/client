@@ -1,111 +1,118 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Card, CardHeader, CardContent, Grid, Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { TextField, Button, Grid, Card, CardContent, CardHeader } from '@mui/material';
+import { toast } from 'react-toastify';
 import agent from '../../../app/api/agent';
 import { InvoiceSender } from '../../../models/invoice/invoiceSender';
 
-const CreateInvoiceSenderForm = () => {
+const InvoiceSenderProfile: React.FC = () => {
     const [invoiceSender, setInvoiceSender] = useState<InvoiceSender>({
-        Id: 0,
-        Address: '',
-        City: '',
-        Company: '',
-        Zip: '',
-        Country: '',
+        id: 0,
+        address: 'Company Address',
+        city: 'City',
+        company: 'Company Name',
+        zip: 'Zip Code',
+        country: 'Country',
     });
 
-    useEffect(() => {
-        getInvoiceSender();
+    useEffect(() => { 
+        const fetchInitialInvoiceSender = async () => {
+            try {
+                const response = await agent.InvoiceSenders.details();
+                setInvoiceSender(response);
+            } catch (error) {
+                console.error('An error occured while fetching the invoice settings!', error);
+                toast.error('An error occured while fetching the invoice settings!');
+            }
+        };
+
+        fetchInitialInvoiceSender();
     }, []);
 
-    const getInvoiceSender = async () => {
-        try {
-            const response = await agent.InvoiceSenders.details();
-            setInvoiceSender(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInvoiceSender((prevInvoiceSender) => ({
-            ...prevInvoiceSender,
-            [e.target.name]: e.target.value,
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setInvoiceSender((prevSettings) => ({
+            ...prevSettings,
+            [name]: value,
         }));
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
         try {
-            const response = await agent.InvoiceSenders.createOrUpdate(invoiceSender);
-            console.log(response.data); // Assuming the API returns the saved invoiceSender object
+            e.preventDefault();
+            await agent.InvoiceSenders.createOrUpdate(invoiceSender);
+            toast.success('Invoice sender profile saved successfully!');
         } catch (error) {
-            console.error(error);
+            console.error('Error toggling like status:', error);
+            toast.error('An error occured while updating the invoice sender profile!');
         }
     };
 
     return (
         <Card>
-            <CardHeader title='Update Invoice Sender' />
+            <CardHeader title="Invoice Sender Config" />
             <CardContent>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
-                                name="name"
-                                label="Name"
-                                value={invoiceSender.Company}
-                                onChange={handleChange}
+                                name="company"
+                                label="Company"
+                                value={invoiceSender?.company || ''}
+                                onChange={handleInputChange}
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
-                                name="email"
-                                label="Email"
-                                value={invoiceSender.Country}
-                                onChange={handleChange}
+                                name="country"
+                                label="Country"
+                                value={invoiceSender?.country || ''}
+                                onChange={handleInputChange}
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                name="address"
-                                label="Address"
-                                value={invoiceSender.Address}
-                                onChange={handleChange}
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 name="city"
                                 label="City"
-                                value={invoiceSender.City}
-                                onChange={handleChange}
+                                value={invoiceSender?.city || ''}
+                                onChange={handleInputChange}
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                name="address"
+                                label="Address"
+                                value={invoiceSender?.address || ''}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 name="zip"
-                                label="Zip"
-                                value={invoiceSender.Zip}
-                                onChange={handleChange}
+                                label="ZIP"
+                                value={invoiceSender?.zip || ''}
+                                onChange={handleInputChange}
                                 fullWidth
                             />
                         </Grid>
+
+                        <Grid item xs={12}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                            >
+                                Save
+                            </Button>
+                        </Grid>
                     </Grid>
-                    
-                    <Box mt={2}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Save
-                        </Button>
-                    </Box>
                 </form>
             </CardContent>
         </Card>
     );
 };
 
-export default CreateInvoiceSenderForm;
+export default InvoiceSenderProfile;
