@@ -222,6 +222,15 @@ export default function Sidebar({ handleThemeChange, darkMode }: Props) {
               <ListItemText primary="Invoice Settings" />
             </ListItemButton>
           </ListItem>
+
+          <ListItem key="Invoice Sender Profile" disablePadding>
+            <ListItemButton component={NavLink} to="/invoiceSenderProfile">
+              <ListItemIcon>
+                <Redeem />
+              </ListItemIcon>
+              <ListItemText primary="Invoice Sender Profile" />
+            </ListItemButton>
+          </ListItem>
         </List>
 
       }

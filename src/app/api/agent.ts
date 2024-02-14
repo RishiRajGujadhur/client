@@ -154,7 +154,7 @@ const InvoicesSettings = {
     update: (invoiceData: any) => requests.put(`Invoice/updateInvoiceSettings`, invoiceData),  
 }
 
-const InvoiceSender = {
+const InvoiceSenders = {
     details: () => requests.get('Invoice/getInvoiceSender'), 
     createOrUpdate: (invoiceSenderData: InvoiceSender) => requests.post('Invoice/CreateOrUpdateInvoiceSender', invoiceSenderData), 
 }
@@ -185,7 +185,7 @@ const agent = {
     Payments,
     Orders,
     InvoicesSettings,
-    InvoiceSender,
+    InvoiceSenders,
 }
 
 export default agent;

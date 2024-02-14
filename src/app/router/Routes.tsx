@@ -19,6 +19,7 @@ import InvoiceSettingsForm from '../../features/admin/Settings/invoiceSettings/I
 import ManageOrders from '../../features/admin/manage_orders/ManageOrders';
 import ManageUsers from '../../features/admin/manage_users/ManageUsers';
 import ManageOrdersByUser from '../../features/admin/manage_orders/ManageOrdersByUser';
+import InvoiceSenderProfile from '../../features/account/settings/InvoiceSenderProfile';
 
 export const router = createBrowserRouter(([
     {
@@ -31,7 +32,8 @@ export const router = createBrowserRouter(([
                     { path: '/checkout', element: <CheckoutWrapper /> },
                     { path: '/orders', element: <Orders /> },
                     { path: '/my-invoices', element: <InvoiceList /> },
-                    { path: '/invoice/:id', element: <InvoiceDetailsPage /> }
+                    { path: '/invoice/:id', element: <InvoiceDetailsPage /> },
+                    { path: '/invoiceSenderProfile/', element: <InvoiceSenderProfile />}
                 ]
             },
             {
