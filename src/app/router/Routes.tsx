@@ -15,7 +15,7 @@ import CheckoutWrapper from '../../features/checkout/CheckoutWrapper';
 import Orders from '../../features/orders/Orders';
 import InvoiceList from '../../features/Invoice/InvoiceList'; 
 import InvoiceDetailsPage from '../../features/Invoice/InvoiceDetailsPage';
-import InvoiceSettingsForm from '../../features/admin/Settings/InvoiceSettings/InvoiceSettingsForm';
+import InvoiceSettingsForm from '../../features/admin/Settings/invoiceSettings/InvoiceSettingsForm';
 import ManageOrders from '../../features/admin/manage_orders/ManageOrders';
 import ManageUsers from '../../features/admin/manage_users/ManageUsers';
 import ManageOrdersByUser from '../../features/admin/manage_orders/ManageOrdersByUser';

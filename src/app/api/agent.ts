@@ -156,8 +156,7 @@ const InvoicesSettings = {
 
 const InvoiceSender = {
     details: () => requests.get('Invoice/getInvoiceSender'), 
-    create: (invoiceSenderData: InvoiceSender) => requests.post('Invoice/createInvoiceSender', invoiceSenderData),
-    update: (invoiceSenderData: any) => requests.put(`Invoice/updateInvoiceSender`, invoiceSenderData),  
+    createOrUpdate: (invoiceSenderData: InvoiceSender) => requests.post('Invoice/CreateOrUpdateInvoiceSender', invoiceSenderData), 
 }
 
 const Payments = {
