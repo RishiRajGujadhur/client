@@ -9,9 +9,10 @@ export default function PaymentMethodForm() {
             rules={{ required: true }}
             control={control}
             name="paymentMethod"
+            defaultValue={null}
             render={({ field }) => (
                 <FormControl component="fieldset">
-                    <RadioGroup aria-label="payment-method" row {...field}>
+                    <RadioGroup aria-label="payment-method" row value={field.value} onChange={field.onChange} >
                         <Grid item xs={12}>
                             <FormControlLabel value="PayOnDelivery" control={<Radio />} label="Pay on delivery" />
                         </Grid>
