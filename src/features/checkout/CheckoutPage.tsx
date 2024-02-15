@@ -9,8 +9,9 @@ import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
 import agent from '../../app/api/agent';
 import { clearBasket } from '../basket/basketSlice';
 import { LoadingButton } from '@mui/lab';  
+import PaymentMethodForm from "./PaymentMethodForm";
 
-const steps = ['Shipping address', 'Review your order'];
+const steps = ['Shipping address','Payment method','Review your order',];
 
 export default function CheckoutPage() {
     const [activeStep, setActiveStep] = useState(0);
@@ -25,10 +26,11 @@ export default function CheckoutPage() {
             case 0:
                 return <AddressForm />;
             case 1:
-                return <Review />;
-            case 2:
-                return <> Hello World </>; 
-                break; // Add a break statement
+                return <PaymentMethodForm paymentMethod={""} onPaymentMethodChange={function (method: string): void {
+                    throw new Error("Function not implemented.");
+                } } />;
+            case 2: 
+                return <Review />; 
             default:
                 throw new Error('Unknown step');
         }
