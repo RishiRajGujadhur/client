@@ -56,7 +56,8 @@ export default function ManageOrdersByUser() {
                     <TableRow>
                         <TableCell>Order Number</TableCell>
                         <TableCell align="right">Total</TableCell>
-                        <TableCell align="right">Order Date</TableCell> 
+                        <TableCell align="right">Order Date</TableCell>  
+                        <TableCell align="right">Payment Method</TableCell>
                         <TableCell align="right">Order Status</TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>
@@ -71,8 +72,8 @@ export default function ManageOrdersByUser() {
                                 {order.id}
                             </TableCell>
                             <TableCell align="right">{currencyFormat(order.total)}</TableCell>
-                            <TableCell align="right">{order.orderDate.split('T')[0]}</TableCell>
-                           
+                            <TableCell align="right">{order.orderDate.split('T')[0]}</TableCell> 
+                            <TableCell align="right">{order.paymentMethod}</TableCell>
                             <TableCell align="right">
                                 <FormControl sx={{ width: 200 }}>
                                     <InputLabel></InputLabel>

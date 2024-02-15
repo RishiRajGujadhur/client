@@ -14,10 +14,10 @@ export default function PaymentMethodForm() {
                 <FormControl component="fieldset">
                     <RadioGroup aria-label="payment-method" row value={field.value} onChange={field.onChange} >
                         <Grid item xs={12}>
-                            <FormControlLabel value="PayOnDelivery" control={<Radio />} label="Pay on delivery" />
+                            <FormControlLabel value="Cash On Delivery" control={<Radio />} label="Cash on delivery" />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControlLabel value="InternetBanking" control={<Radio />} label="Internet Banking / Juice Transfer" />
+                            <FormControlLabel value="Internet Banking" control={<Radio />} label="Internet Banking / Juice Transfer" />
                             <Tooltip title="Pay instantly, get confirmation now, and enjoy your product in 2 business days!
 Fast & Easy: Secure your purchase & get it in 48 hours.">
                                 <IconButton size="small">
@@ -26,7 +26,7 @@ Fast & Easy: Secure your purchase & get it in 48 hours.">
                             </Tooltip>
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControlLabel value="bank-transfer" control={<Radio />} label="Bank Transfer" />
+                            <FormControlLabel value="Bank Transfer" control={<Radio />} label="Bank Transfer" />
                         </Grid>
                     </RadioGroup>
                 </FormControl>

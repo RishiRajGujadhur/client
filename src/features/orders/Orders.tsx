@@ -38,6 +38,7 @@ export default function Orders() {
                         <TableCell align="right">Total</TableCell>
                         <TableCell align="right">Order Date</TableCell>
                         <TableCell align="right">Order Status</TableCell> 
+                        <TableCell align="right">Payment Method</TableCell> 
                         <TableCell align="right"></TableCell>
                     </TableRow>
                 </TableHead>
@@ -53,6 +54,7 @@ export default function Orders() {
                             <TableCell align="right">{currencyFormat(order.total)}</TableCell>
                             <TableCell align="right">{order.orderDate.split('T')[0]}</TableCell>
                             <TableCell align="right">{order.orderStatus}</TableCell> 
+                            <TableCell align="right">{order.paymentMethod}</TableCell> 
                             <TableCell align="right">
                                 <Button onClick={() => setSelectedOrderNumber(order.id)}>
                                     View

@@ -61,11 +61,12 @@ export default function CheckoutPage() {
     const submitOrder = async (data: FieldValues) => { 
         setLoading(true);
         const { saveAddress, ...shippingAddress } = data;
+        const paymentMethod = data.paymentMethod;
         try {
             // Simulate a payment process
             if ('succeeded') {
-                // Create the order on the server
-                const orderNumber = await agent.Orders.create({ saveAddress, shippingAddress });
+                // Create the order on the server 
+                const orderNumber = await agent.Orders.create({ saveAddress, shippingAddress, paymentMethod });
                 setOrderNumber(orderNumber);
                 setPaymentSucceeded(true);
                 setPaymentMessage('Thank you - we have received your order');
@@ -85,8 +86,7 @@ export default function CheckoutPage() {
     }
 
     // Function to handle the "Next" button click
-    const handleNext = async (data: FieldValues) => { 
-        console.log(activeStep, 'activeStep in handleNext'); 
+    const handleNext = async (data: FieldValues) => {  
         if (activeStep === steps.length - 1) {
             // If it's the last step, submit the order
             await submitOrder(data);
@@ -137,7 +137,6 @@ export default function CheckoutPage() {
                     ) : (
                         // If it's not the last step, show the form for the current step
                         <form onSubmit={methods.handleSubmit(handleNext)}>
-                            console.log(activeStep, 'activeStep');
                             {getStepContent(activeStep)}
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 {activeStep !== 0 && (
