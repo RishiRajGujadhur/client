@@ -26,9 +26,7 @@ export default function CheckoutPage() {
             case 0:
                 return <AddressForm />;
             case 1:
-                return <PaymentMethodForm paymentMethod={""} onPaymentMethodChange={function (method: string): void {
-                    throw new Error("Function not implemented.");
-                } } />;
+                return <PaymentMethodForm />;
             case 2: 
                 return <Review />; 
             default:
