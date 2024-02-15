@@ -21,7 +21,7 @@ export default function CheckoutPage() {
     const [paymentMessage, setPaymentMessage] = useState('');
     const [paymentSucceeded, setPaymentSucceeded] = useState(false);
     
-    function getStepContent(step: number) {  
+    const getStepContent = (step: number) => {  
         switch (step) {
             case 0:
                 return <AddressForm />;
@@ -33,7 +33,6 @@ export default function CheckoutPage() {
                 throw new Error('Unknown step');
         }
     }
-
 
     const currentValidationSchema = validationSchema[activeStep];
 
@@ -51,7 +50,9 @@ export default function CheckoutPage() {
             })
     }, [methods]);
 
-    async function submitOrder(data: FieldValues) {
+    const submitOrder = async (data: FieldValues) => {
+        console.log(data);
+        debugger;
         setLoading(true);
         const { saveAddress, ...shippingAddress } = data;
         try {
@@ -75,6 +76,7 @@ export default function CheckoutPage() {
     }
 
     const handleNext = async (data: FieldValues) => {
+        console.log(data, 'data');
         if (activeStep === steps.length - 1) {
             await submitOrder(data);
         } else {
