@@ -9,17 +9,17 @@ export default function PaymentMethodForm() {
             rules={{ required: true }}
             control={control}
             name="paymentMethod"
-            defaultValue={null}
+            defaultValue="Cash On Delivery" // Set the default value to "Cash On Delivery"
             render={({ field }) => (
                 <FormControl component="fieldset">
-                    <RadioGroup aria-label="payment-method" row value={field.value} onChange={field.onChange} >
+                    <RadioGroup aria-label="payment-method" value={field.value} onChange={field.onChange}>
                         <Grid item xs={12}>
                             <FormControlLabel value="Cash On Delivery" control={<Radio />} label="Cash on delivery" />
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel value="Internet Banking" control={<Radio />} label="Internet Banking / Juice Transfer" />
                             <Tooltip title="Pay instantly, get confirmation now, and enjoy your product in 2 business days!
-Fast & Easy: Secure your purchase & get it in 48 hours.">
+        Fast & Easy: Secure your purchase & get it in 48 hours.">
                                 <IconButton size="small">
                                     <InfoIcon />
                                 </IconButton>
