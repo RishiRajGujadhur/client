@@ -154,6 +154,12 @@ const InvoicesSettings = {
     update: (invoiceData: any) => requests.put(`Invoice/updateInvoiceSettings`, invoiceData),  
 }
 
+const GeneralSettings = {
+    details: () => requests.get('GeneralSettings'), 
+    create: (settingsData: InvoiceSettings) => requests.post('GeneralSettings', settingsData),
+    update: (id:number, settingsData: any) => requests.put(`GeneralSettings/${id}`, settingsData),  
+}
+
 const InvoiceSenders = {
     details: () => requests.get('Invoice/getInvoiceSender'), 
     createOrUpdate: (invoiceSenderData: InvoiceSender) => requests.post('Invoice/CreateOrUpdateInvoiceSender', invoiceSenderData), 
@@ -186,6 +192,7 @@ const agent = {
     Orders,
     InvoicesSettings,
     InvoiceSenders,
+    GeneralSettings,
 }
 
 export default agent;

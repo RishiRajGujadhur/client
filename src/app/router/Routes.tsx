@@ -20,6 +20,7 @@ import ManageOrders from '../../features/admin/manage_orders/ManageOrders';
 import ManageUsers from '../../features/admin/manage_users/ManageUsers';
 import ManageOrdersByUser from '../../features/admin/manage_orders/ManageOrdersByUser';
 import InvoiceSenderProfile from '../../features/account/settings/InvoiceSenderProfile';
+import GeneralSettingsForm from '../../features/admin/Settings/general/generalSettings';
 
 export const router = createBrowserRouter(([
     {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter(([
                     { path: '/orders', element: <Orders /> },
                     { path: '/my-invoices', element: <InvoiceList /> },
                     { path: '/invoice/:id', element: <InvoiceDetailsPage /> },
-                    { path: '/invoiceSenderProfile/', element: <InvoiceSenderProfile />}
+                    { path: '/invoiceSenderProfile/', element: <InvoiceSenderProfile />},
                 ]
             },
             {
@@ -43,7 +44,8 @@ export const router = createBrowserRouter(([
                     { path: '/manageOrders', element: <ManageOrders /> },
                     { path: '/invoiceSettings/', element: <InvoiceSettingsForm />},
                     { path: '/manageUsers/', element: <ManageUsers />},
-                    { path: '/manageOrdersByUser/:id', element: <ManageOrdersByUser />}
+                    { path: '/manageOrdersByUser/:id', element: <ManageOrdersByUser />},
+                    { path: '/generalSettings/', element: <GeneralSettingsForm />}
                 ]
             },
             { path: 'catalog', element: <Catalog /> },
