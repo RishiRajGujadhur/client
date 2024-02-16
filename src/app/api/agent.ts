@@ -155,6 +155,7 @@ const InvoicesSettings = {
 }
 
 const GeneralSettings = {
+    getAppName: () => requests.get('GeneralSettings/getAppName'),
     details: () => requests.get('GeneralSettings'), 
     create: (settingsData: InvoiceSettings) => requests.post('GeneralSettings', settingsData),
     update: (id:number, settingsData: any) => requests.put(`GeneralSettings/${id}`, settingsData),  
