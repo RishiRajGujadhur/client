@@ -1,8 +1,8 @@
 export interface GeneralSettings {
   id: number;
-  logo: string;
+  logoUrl: string;
   appName: string;
   companyName: string;
   defaultCurrency: string;
-  defaultLanguage: string;
+  defaultLanguage: string;  
 }

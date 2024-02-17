@@ -1,7 +1,7 @@
+// Importing necessary dependencies and components
 import { Box, Paper, Typography, Grid, Button } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
 import AppTextInput from '../../app/components/AppTextInput';
- 
 import { useEffect } from 'react';
 import useProducts from '../../app/hooks/useProducts';
 import AppSelectList from '../../app/components/AppSelectList';
@@ -14,20 +14,30 @@ import { setProduct } from '../catalog/catalogSlice';
 import { LoadingButton } from '@mui/lab';
 import { Product } from '../../models/product';
 
+// Defining the Props interface for the ProductForm component
 interface Props {
     product?: Product;
     cancelEdit: () => void;
 }
 
+// Exporting the ProductForm component as the default export
 export default function ProductForm({ product, cancelEdit }: Props) {
+    // Initializing the react-hook-form
     const { control, reset, handleSubmit, watch, formState: { isDirty, isSubmitting } } = useForm({
         mode: 'onTouched',
         resolver: yupResolver<any>(validationSchema)
     });
+
+    // Fetching brands and types using the useProducts custom hook
     const { brands, types } = useProducts();
+
+    // Watching for changes in the 'file' field
     const watchFile = watch('file', null);
+
+    // Getting the dispatch function from the app store
     const dispatch = useAppDispatch();
 
+    // Resetting the form when the product, watchFile, or isDirty changes
     useEffect(() => {
         if (product && !watchFile && !isDirty) reset(product);
         return () => {
@@ -35,6 +45,7 @@ export default function ProductForm({ product, cancelEdit }: Props) {
         }
     }, [product, reset, watchFile, isDirty]);
 
+    // Handling form submission
     async function handleSubmitData(data: FieldValues) {
         try {
             let response: Product;
@@ -50,6 +61,7 @@ export default function ProductForm({ product, cancelEdit }: Props) {
         }
     }
 
+    // Rendering the ProductForm component
     return (
         <Box component={Paper} sx={{ p: 4 }}>
             <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>

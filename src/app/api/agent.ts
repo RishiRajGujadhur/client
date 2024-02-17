@@ -157,8 +157,8 @@ const InvoicesSettings = {
 const GeneralSettings = {
     getAppName: () => requests.get('GeneralSettings/getAppName'),
     details: () => requests.get('GeneralSettings'), 
-    create: (settingsData: InvoiceSettings) => requests.post('GeneralSettings', settingsData),
-    update: (id:number, settingsData: any) => requests.put(`GeneralSettings/${id}`, settingsData),  
+    create: (settingsData: any) => requests.putForm('GeneralSettings', createFormData(settingsData)),
+    update: (id:number, settingsData: any) => requests.putForm(`GeneralSettings/${id}`,  createFormData(settingsData)),  
 }
 
 const InvoiceSenders = {

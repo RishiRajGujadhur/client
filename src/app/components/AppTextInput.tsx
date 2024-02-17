@@ -18,6 +18,7 @@ export default function AppTextInput(props: Props) {
             multiline={props.multiline}
             rows={props.rows}
             type={props.type}
+            value={field.value || ''}
             fullWidth
             variant="outlined"
             error={!!fieldState.error}
