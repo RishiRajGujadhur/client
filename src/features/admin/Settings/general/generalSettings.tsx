@@ -19,7 +19,7 @@ const GeneralSettingsForm: React.FC = () => {
 
     const [generalSettings, setGeneralSettings] = useState<GeneralSettings>({
         id: 1,
-        logoUrl: 'My logo url',
+        logoURL: 'My logo url',
         appName: 'Store Manager',
         companyName: 'Store Manager',
         defaultCurrency: 'USD',
@@ -89,8 +89,8 @@ const GeneralSettingsForm: React.FC = () => {
                                     <img src={watchFile.preview} alt='preview' style={{ maxHeight: 200, paddingLeft:25 }} />
                                 ) : (
                                     
-                                console.log(generalSettings?.logoUrl),
-                                    <img src={generalSettings?.logoUrl} alt={generalSettings?.companyName} style={{ maxHeight: 200, paddingLeft:25 }} />
+                                console.log(generalSettings),
+                                    <img src={generalSettings?.logoURL} alt={generalSettings?.companyName} style={{ maxHeight: 200, paddingLeft:25 }} />
                                 )}
                             </Box>
                         </Grid>

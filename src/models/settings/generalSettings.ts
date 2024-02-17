@@ -1,6 +1,6 @@
 export interface GeneralSettings {
   id: number;
-  logoUrl: string;
+  logoURL: string;
   appName: string;
   companyName: string;
   defaultCurrency: string;
