@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, Card, CardContent, CardHeader, Box } from '@mui/material';
+import { Button, Grid, Card, CardContent, CardHeader, Box, CircularProgress } from '@mui/material';
 import agent from '../../../../app/api/agent';
 import { toast } from 'react-toastify';
 import { GeneralSettings } from '../../../../models/settings/generalSettings';
@@ -26,6 +26,8 @@ const GeneralSettingsForm: React.FC = () => {
         defaultLanguage: 'en',
     });
 
+    const [isLoading, setIsLoading] = useState(false); // Add isLoading state
+
     useEffect(() => {
         const fetchInitialGeneralSettings = async () => {
             try {
@@ -51,15 +53,22 @@ const GeneralSettingsForm: React.FC = () => {
     // Handling form submission
     async function handleSubmitData(data: FieldValues) {  
         try {
+            setIsLoading(true); // Set isLoading to true when form is submitted
+
             let response: GeneralSettings;
+            
             if (generalSettings) {
                 let generalSettingsId = 1;
                 response = await agent.GeneralSettings.update(generalSettingsId, data);
             } else {
                 response = await agent.GeneralSettings.create(data);
             }
+            toast.success('General Settings Changes Saved Successfully!');
+            setIsLoading(false); // Set isLoading to false after form submission
         } catch (error) {
             console.log(error);
+            toast.error('Could not save changes! Please try again later or contact your Super Admin.');
+            setIsLoading(false); // Set isLoading to false if an error occurs during form submission
         }
     }
 
@@ -87,16 +96,14 @@ const GeneralSettingsForm: React.FC = () => {
                                 
                                 {watchFile ? (
                                     <img src={watchFile.preview} alt='preview' style={{ maxHeight: 200, paddingLeft:25 }} />
-                                ) : (
-                                    
-                                console.log(generalSettings),
+                                ) : ( 
                                     <img src={generalSettings?.logoURL} alt={generalSettings?.companyName} style={{ maxHeight: 200, paddingLeft:25 }} />
                                 )}
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button type="submit" variant="contained" color="primary">
-                                Save
+                            <Button type="submit" variant="contained" color="primary" disabled={isLoading}>
+                                {isLoading ? <CircularProgress size={24} /> : 'Save'} {/* Show loading spinner when isLoading is true */}
                             </Button>
                         </Grid>
                     </Grid>
