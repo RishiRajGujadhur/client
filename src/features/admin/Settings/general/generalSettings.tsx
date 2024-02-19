@@ -58,7 +58,7 @@ const GeneralSettingsForm: React.FC = () => {
             let response: GeneralSettings;
             
             if (generalSettings) {
-                let generalSettingsId = 1;
+                let generalSettingsId = 1; // Set the generalSettingsId to 1 for now because we only have one general settings record
                 response = await agent.GeneralSettings.update(generalSettingsId, data);
             } else {
                 response = await agent.GeneralSettings.create(data);
