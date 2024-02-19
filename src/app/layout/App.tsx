@@ -1,6 +1,6 @@
 import { Box, Container, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Header from './Header';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
@@ -29,7 +29,11 @@ function App() {
     initApp().then(() => setLoading(false));
   }, [initApp])
 
-  const [darkMode, setDarkMode] = useState(false);
+  const initialDarkModeStatus = useMemo(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  }, []);
+
+  const [darkMode, setDarkMode] = useState(initialDarkModeStatus);
   const palleteType = darkMode ? 'dark' : 'light';
   const theme = createTheme({
     palette: {
@@ -42,6 +46,7 @@ function App() {
   const { user } = useAppSelector(state => state.account);
   function handleThemeChange() {
     setDarkMode(!darkMode);
+    localStorage.setItem('darkMode', (!darkMode).toString());
   }
 
   return (
