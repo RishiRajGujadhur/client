@@ -21,6 +21,7 @@ import ManageUsers from '../../features/admin/manage_users/ManageUsers';
 import ManageOrdersByUser from '../../features/admin/manage_orders/ManageOrdersByUser';
 import InvoiceSenderProfile from '../../features/account/settings/InvoiceSenderProfile';
 import GeneralSettingsForm from '../../features/admin/Settings/general/generalSettings';
+import FeaturePage from '../../features/feature_settings/FeaturesPage';
 
 export const router = createBrowserRouter(([
     {
@@ -45,7 +46,8 @@ export const router = createBrowserRouter(([
                     { path: '/invoiceSettings/', element: <InvoiceSettingsForm />},
                     { path: '/manageUsers/', element: <ManageUsers />},
                     { path: '/manageOrdersByUser/:id', element: <ManageOrdersByUser />},
-                    { path: '/generalSettings/', element: <GeneralSettingsForm />}
+                    { path: '/generalSettings/', element: <GeneralSettingsForm />},
+                    { path: '/featureSettings/', element: <FeaturePage />}
                 ]
             },
             { path: 'catalog', element: <Catalog /> },

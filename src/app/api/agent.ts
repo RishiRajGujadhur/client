@@ -10,7 +10,8 @@ import { InvoiceSettings } from "../../models/invoice/InvoiceSettings/InvoiceSet
 import { OrderStatus } from "../../models/orderStatus";
 import { UserParams } from "../../models/UserParams";
 import { InvoiceSender } from "../../models/invoice/invoiceSender";
-
+import { FeatureSettings } from "../../models/settings/featureSettings/featureSettings";
+import { FeatureStatusSettings } from "../../models/settings/featureSettings/featureStatusSettings";
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
 axios.defaults.baseURL = 'http://localhost:5001/api/';
@@ -129,7 +130,6 @@ const Admin = {
     deleteProduct: (id: number) => requests.del(`products/${id}`)
 }
 
-
 const Receipts = {
     list: () => requests.get('receipts'),
     details: (id: number) => requests.get(`receipts/${id}`),
@@ -147,7 +147,7 @@ const Invoices = {
     delete: (id: number) => requests.del(`Invoice/${id}`),
     getMyInvoiceList: (pageSize: number, pageNumber: number) => requests.get(`Invoice/getMyInvoiceList?pageSize=${pageSize}&pageNumber=${pageNumber}`)
 }  
- 
+
 const InvoicesSettings = {
     details: () => requests.get('Invoice/getFirstInvoiceSettings'), 
     create: (invoiceData: InvoiceSettings) => requests.post('Invoice/saveInvoiceSettings', invoiceData),
@@ -168,6 +168,15 @@ const InvoiceSenders = {
 
 const Payments = {
     createPaymentIntent: () => requests.post('payments', {})
+}
+
+const FeatureConfigs = {
+    list: () => requests.get('featureSettings'),
+    details: (id: number) => requests.get(`featureSettings/${id}`),
+    create: (featureSetting: FeatureSettings) => requests.post('featureSettings', featureSetting),
+    update: (id: number, featureSetting: FeatureSettings) => requests.put(`featureSettings/${id}`, featureSetting),
+    changeStatus: (id: number, status: FeatureStatusSettings) => requests.put(`featureSettings/${id}`, status),
+    delete: (id: number) => requests.del(`featureSettings/${id}`),
 }
 
 const Orders = {
@@ -194,6 +203,7 @@ const agent = {
     InvoicesSettings,
     InvoiceSenders,
     GeneralSettings,
+    FeatureConfigs,
 }
 
 export default agent;
