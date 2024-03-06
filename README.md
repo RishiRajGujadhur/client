@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+React Store
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+About
 
-## Available Scripts
+This is a full-stack e-commerce application built using React, TypeScript, Node.js, .net, SignalR, Kafka, Docker, and PostgreSQL.
 
-In the project directory, you can run:
+Features
 
-### `npm start`
+⦁  User authentication and authorization
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+⦁  Product browsing and filtering
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+⦁  Comments
 
-### `npm test`
+⦁  Likes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+⦁  Shopping cart and checkout
 
-### `npm run build`
+⦁  Order tracking
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+⦁  Invoice generation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+⦁  Admin dashboard
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+⦁  Feature Settings
 
-### `npm run eject`
+⦁  Order Statistics
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+⦁  Product recommendations
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+⦁  Order prediction 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Getting Started
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To get started, clone the repository and install the dependencies:
 
-## Learn More
+git clone https://github.com/RishiRajGujadhur/ReactStore.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+cd ReactStore
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+npm install
+
+Use code with caution.
+
+Running the Application
+
+To run the application, start the server and the client:
+
+⦁  cd API: dotnet run
+
+⦁  cd Client: npm start
+
+Use code with caution.
+
+API Endpoints
+
+The following API endpoints are available:
+
+/api/products: Get all products
+
+/api/products/:id: Get a single product by ID
+
+/api/orders: Get all orders for the current user
+
+/api/orders/:id: Get a single order by ID
+
+/api/users: Get all users (admin only)
+
+/api/users/:id: Get a single user by ID (admin only)
+
+Admin Dashboard
+
+The admin dashboard is accessible at /admin. It provides a UI for managing products, orders, and users.
+
+Deployment
+
+To deploy the application to a production environment, you can use a platform such as Heroku, Azure or AWS.
+
+Contributing
+
+Contributions are welcome! Please create a pull request with your changes.
+
+License
+
+This project is licensed under the MIT License.
