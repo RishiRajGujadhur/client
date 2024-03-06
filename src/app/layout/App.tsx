@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../store/configureStore';
 import { fetchBasketAsync } from '../../features/basket/basketSlice';
 import { fetchCurrentUser } from '../../features/account/accountSlice'; 
 import Sidebar from './Sidebar';
-import DisplayLoading from './DisplayLoading';
+import DisplayLoading from './DisplayLoading'; 
 
 
 function App() {
